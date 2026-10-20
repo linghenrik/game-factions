@@ -4,7 +4,7 @@
 
 This repo holds packs: JSON definitions and art, one folder per pack (every top-level folder except `pack-tools` and `docs` counts as a pack). **Merging to `main` ships to ranked**, so the owner approves every pull request. Pull requests are merged as one squashed commit.
 
-The repo is public: everyone can read it, but only collaborators can open pull requests and issues. The licence isn't decided yet; see README.md.
+The repo is public: everyone can read it, but only collaborators can open pull requests and issues. By opening a pull request you accept the terms in [LICENSE.md](LICENSE.md): you keep the copyright, and a merged pull request grants the owner a licence to use your contribution in the game and the sole right to make physical goods from it.
 
 ## One-time setup
 
