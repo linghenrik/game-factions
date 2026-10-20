@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.signature_breaker_overcharge", "kind": "shop_item",
+  "name": "Overcharge Protocol", "description": "Unlocks Corporate Restructuring's Overcharge Protocol augment for 250 supply, adding 12 damage to the dash once your team gets 3 kills.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "swarm.augment.signature_breaker.overcharge", "signature_rank": 0, "price": 250.0, "lore": {"flavor": ""} }

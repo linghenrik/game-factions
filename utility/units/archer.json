@@ -1,0 +1,9 @@
+{
+  "id": "utility.unit.archer", "kind": "minion", "house_tag": "utility",
+  "name": "Field Marksman", "description": "A ranged utility minion that fires for 9 damage every second from up to 110 units away at a moderate cost of 18.",
+  "cost": 18.0, "hp": 55.0, "speed": 60.0,
+  "attack_damage": 9.0, "attack_range": 92.0, "attack_cooldown": 1.0,
+  "aggro_radius": 130.0,
+  "assets": {"model_3d": "utility_archer"},
+  "lore": {"flavor": ""}
+}

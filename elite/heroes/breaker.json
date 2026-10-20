@@ -1,0 +1,12 @@
+{
+  "id": "elite.hero.breaker", "kind": "hero", "hero_class": "breaker", "house_tag": "elite",
+  "hp": 380.0, "speed": 130.0,
+  "signature_ability": "elite.ability.signature_breaker",
+  "abilities": [
+    "elite.ability.basic_breaker_aoe", "elite.ability.basic_breaker_cone",
+    "elite.ability.basic_breaker_focus", "elite.ability.signature_breaker",
+    "elite.ability.harvest"
+  ],
+  "assets": {"model_3d": "elite_breaker"},
+  "lore": {"title": "", "bio": "", "quote": ""}
+}

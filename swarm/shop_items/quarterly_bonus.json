@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.quarterly_bonus", "kind": "shop_item",
+  "name": "Quarterly Bonus", "description": "Purchases the Quarterly Bonus augment for 400 supply, healing the hero for 20% of missing health on every active skill cast.",
+  "channel": "hero", "house_tag": "swarm",
+  "grant_kind": "augment", "grants": "swarm.augment.quarterly_bonus", "price": 400.0, "lore": {"flavor": ""} }

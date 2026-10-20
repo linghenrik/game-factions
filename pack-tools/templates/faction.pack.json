@@ -1,0 +1,1 @@
+{ "id": "my_faction", "version": "0.1.0", "category": "faction", "name": "My Faction", "order": 100, "dependencies": ["base"], "lore": {"summary": ""} }

@@ -1,0 +1,4 @@
+{ "id": "swarm.augment.signature_breaker.wider_slam", "kind": "augment",
+  "name": "Wider Slam", "description": "Widens Corporate Restructuring's dash-impact radius by 25 units, unlocking once Breaker reaches 420 max health.",
+  "applies_to": "swarm.ability.signature_breaker", "deltas": {"radius": 25.0},
+  "unlock": {"hero_max_health": 420.0}, "lore": {"flavor": ""} }

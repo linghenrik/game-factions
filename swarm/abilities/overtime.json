@@ -1,0 +1,13 @@
+{ "id": "swarm.ability.overtime", "kind": "ability", "passive": true,
+  "name": "Overtime Shift", "description": "Grants 15% bonus damage for 0.6 seconds, continuously refreshed whenever more than 2 allies are working within 220 units.",
+  "cost": {}, "cast_mobility": "mobile", "duration": 1000000.0,
+  "scan_radius": 220.0, "threshold": 2, "buff_dur": 0.6, "dmg_buff": 1.15,
+  "on_tick": [
+    {"if": {"ask": "entities_in_radius", "radius": "$scan_radius", "filter": "ally", "gt": "$threshold"},
+     "then": [
+       {"do": "apply_status", "target": "self", "tag": "overtime_buff", "dur": "$buff_dur", "dmg_mult": "$dmg_buff"}
+     ]},
+    {"wait": "$buff_dur"}
+  ],
+  "lore": {"flavor": ""}
+}

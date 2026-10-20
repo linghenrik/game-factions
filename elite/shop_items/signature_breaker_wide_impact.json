@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.signature_breaker_wide_impact", "kind": "shop_item",
+  "name": "Wide Impact",
+  "description": "A 300-gold commander item that grants the Wide Impact augment, increasing the breaker's Threshing Floor radius by 25 units once unlocked.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "elite.augment.signature_breaker.wide_impact", "signature_rank": 2, "price": 300.0, "lore": {"flavor": ""} }

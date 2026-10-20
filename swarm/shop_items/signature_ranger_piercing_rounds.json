@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.signature_ranger_piercing_rounds", "kind": "shop_item",
+  "name": "Piercing Rounds", "description": "Unlocks Layoff Notice's Piercing Rounds augment for 250 supply, adding extra damage once your team gets 3 kills.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "swarm.augment.signature_ranger.piercing_rounds", "signature_rank": 0, "price": 250.0, "lore": {"flavor": ""} }

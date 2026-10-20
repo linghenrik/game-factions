@@ -1,0 +1,10 @@
+{ "id": "utility.ability.basic_conduit_attack", "kind": "ability",
+  "name": "Precision Jolt", "description": "Deals 10 damage in a narrow cone out to 320 units for 4 energy every 0.3 seconds.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 0.3, "energy": 4.0}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 10.0, "range": 320.0, "half_angle": 8.0,
+  "on_cast": [
+    {"do": "deal_damage", "area": "cone", "range": "$range", "half_angle": "$half_angle", "amount": "$damage"}
+  ],
+  "lore": {"flavor": ""}
+}

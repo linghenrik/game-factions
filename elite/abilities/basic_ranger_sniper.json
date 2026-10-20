@@ -1,0 +1,15 @@
+{ "id": "elite.ability.basic_ranger_sniper", "kind": "ability",
+  "sfx": {"cast": "elite_ability_cast"},
+  "name": "Sniper Shot",
+  "description": "Fires a single piercing shot up to 650 units away for a heavy 65 damage on a slow 2.2-second cooldown.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 2.2}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 65.0, "range": 650.0, "speed": 1000.0, "radius": 3.0, "recoil": -60.0,
+  "on_cast": [
+    {"do": "spawn", "archetype": "projectile", "count": 1, "spread_deg": 0.0,
+     "speed": "$speed", "hit_radius": "$radius", "range": "$range", "pierce": true},
+    {"do": "displace", "target": "self", "distance": "$recoil"}
+  ],
+  "on_hit": [{"do": "deal_damage", "target": "hit", "amount": "$damage"}],
+  "lore": {"flavor": ""}
+}

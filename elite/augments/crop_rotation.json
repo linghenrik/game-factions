@@ -1,0 +1,10 @@
+{ "id": "elite.augment.crop_rotation", "kind": "augment",
+  "name": "Crop Rotation",
+  "description": "Adds a 150-unit root pulse to every active skill cast, rooting nearby enemies for 1.5 seconds.",
+  "applies_to": "base.ability.active_skills_group",
+  "add_hooks": {
+    "on_cast": [
+      {"do": "apply_status", "area": "circle", "at": "caster", "radius": 150.0, "filter": "enemy",
+        "tag": "root", "dur": 1.5}
+    ]
+  }, "lore": {"flavor": ""} }

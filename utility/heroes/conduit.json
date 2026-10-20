@@ -1,0 +1,11 @@
+{
+  "id": "utility.hero.conduit", "kind": "hero", "hero_class": "conduit", "house_tag": "utility",
+  "hp": 290.0, "speed": 125.0,
+  "signature_ability": "utility.ability.signature_conduit",
+  "abilities": [
+    "utility.ability.basic_conduit_attack", "utility.ability.basic_conduit_support",
+    "utility.ability.signature_conduit", "utility.ability.flux"
+  ],
+  "assets": {"model_3d": "utility_conduit"},
+  "lore": {"title": "", "bio": "", "quote": ""}
+}

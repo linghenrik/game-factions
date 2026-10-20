@@ -1,0 +1,10 @@
+{
+  "id": "swarm.unit.swarmling", "kind": "minion", "house_tag": "swarm",
+  "name": "Swarm Temp", "description": "A bargain-bin temp hired for 8 supply that swings for 5 damage every 0.8 seconds and dies in a couple of hits.",
+  "cost": 8.0, "hp": 35.0, "speed": 70.0,
+  "attack_damage": 5.0, "attack_range": 4.0, "attack_cooldown": 0.8,
+  "aggro_radius": 90.0,
+  "body": {"radius": 7.0},
+  "assets": {"model_3d": "swarm_swarmling"},
+  "lore": {"flavor": ""}
+}

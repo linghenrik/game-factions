@@ -1,0 +1,4 @@
+{ "id": "utility.shop_item.signature_ranger_wide_scan", "kind": "shop_item",
+  "name": "Wide Scan", "description": "Costs 300 and, once your team reaches 400 supply, widens Temporal Lock's cone by 10 degrees.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "utility.augment.signature_ranger.wide_scan", "signature_rank": 2, "price": 300.0, "lore": {"flavor": ""} }

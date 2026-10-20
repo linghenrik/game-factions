@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.signature_breaker_wider_slam", "kind": "shop_item",
+  "name": "Wider Slam", "description": "Unlocks Corporate Restructuring's Wider Slam augment for 300 supply, widening its dash-impact radius once Breaker reaches 420 max health.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "swarm.augment.signature_breaker.wider_slam", "signature_rank": 2, "price": 300.0, "lore": {"flavor": ""} }

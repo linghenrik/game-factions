@@ -1,0 +1,7 @@
+{ "id": "elite.augment.bountiful_reap", "kind": "augment",
+  "name": "Bountiful Reap",
+  "description": "Adds a heal-on-hit to basic attacks, restoring 15 health within 120 units of the caster whenever one lands.",
+  "applies_to": "base.ability.basic_attack_group",
+  "add_hooks": {
+    "on_hit": [{"do": "heal", "area": "circle", "at": "caster", "radius": 120.0, "amount": 15.0}]
+  }, "lore": {"flavor": ""} }

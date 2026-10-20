@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.signature_conduit_bountiful_harvest", "kind": "shop_item",
+  "name": "Bountiful Harvest",
+  "description": "A 300-gold commander item that grants the Bountiful Harvest augment, raising the conduit's Fallow Ground heal share by 15 percentage points once unlocked.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "elite.augment.signature_conduit.bountiful_harvest", "signature_rank": 0, "price": 300.0, "lore": {"flavor": ""} }

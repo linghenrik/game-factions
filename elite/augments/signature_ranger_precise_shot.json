@@ -1,0 +1,5 @@
+{ "id": "elite.augment.signature_ranger.precise_shot", "kind": "augment",
+  "name": "Precise Shot",
+  "description": "Unlocks once your team gets 3 kills and adds 8 base damage to Long Season.",
+  "applies_to": "elite.ability.signature_ranger", "deltas": {"damage": 8.0},
+  "unlock": {"team_kills": 3}, "lore": {"flavor": ""} }

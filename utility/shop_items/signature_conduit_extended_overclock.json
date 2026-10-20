@@ -1,0 +1,4 @@
+{ "id": "utility.shop_item.signature_conduit_extended_overclock", "kind": "shop_item",
+  "name": "Extended Overclock", "description": "Costs 250 and, after your team gets 3 kills, extends Conduit's Overclock Field buff duration by 1.5 seconds.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "utility.augment.signature_conduit.extended_overclock", "signature_rank": 0, "price": 250.0, "lore": {"flavor": ""} }

@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.signature_ranger_prolonged_layoff", "kind": "shop_item",
+  "name": "Prolonged Layoff", "description": "Unlocks Layoff Notice's Prolonged Layoff augment for 300 supply, extending its armor-shred duration once your team has 1 standing tower.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "swarm.augment.signature_ranger.prolonged_layoff", "signature_rank": 2, "price": 300.0, "lore": {"flavor": ""} }

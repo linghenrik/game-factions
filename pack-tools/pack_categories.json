@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "pack_id_pattern": "^[a-z][a-z0-9_]{1,31}$",
+  "reserved_ids": ["core", "engine", "game", "main", "test", "tests", "exp"],
+  "reserved_prefixes": ["sample"],
+  "core_id": "base",
+  "folders": {
+    "abilities": "ability",
+    "augments": "augment",
+    "heroes": "hero",
+    "houses": "house",
+    "classes": "hero_class",
+    "units": "minion",
+    "monsters": "monster",
+    "towers": "tower",
+    "shop_items": "shop_item",
+    "camp_items": "shop_item",
+    "camps": "camp",
+    "maps": "map",
+    "rulesets": "ruleset",
+    "ai": "ai_profile",
+    "commander_ai": "commander_ai",
+    "hero_ai": "hero_ai",
+    "sound_themes": "sound_theme"
+  },
+  "camp_items_folder": "camp_items",
+  "categories": {
+    "core": {"folders": "*", "deps": "none", "overrides": false},
+    "faction": {
+      "folders": ["abilities", "augments", "heroes", "units", "shop_items", "towers"],
+      "deps": "base",
+      "overrides": false,
+      "minion_house_is_pack": true
+    },
+    "map": {"folders": ["maps"], "deps": "base", "overrides": false},
+    "jungle": {"folders": ["monsters", "camps", "camp_items"], "deps": "base", "overrides": false},
+    "mod": {"folders": "*", "deps": "any", "overrides": true},
+    "skin": {"client_only": true},
+    "sound": {"client_only": true}
+  }
+}

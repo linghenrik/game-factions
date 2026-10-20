@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.signature_breaker_longer_stun", "kind": "shop_item",
+  "name": "Longer Stun",
+  "description": "A 300-gold commander item that grants the Longer Stun augment, extending the breaker's Threshing Floor stun by 0.5 seconds once unlocked.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "elite.augment.signature_breaker.longer_stun", "signature_rank": 1, "price": 300.0, "lore": {"flavor": ""} }

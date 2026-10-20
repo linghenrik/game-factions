@@ -1,0 +1,17 @@
+{ "id": "utility.ability.flux", "kind": "ability", "passive": true,
+  "name": "Flux Shielding", "description": "Grants a recharging shield that adds 0.15 armor whenever the hero hasn't taken damage in the last 4 seconds.",
+  "cost": {}, "cast_mobility": "mobile", "duration": 1000000.0,
+  "recharge_delay": 4.0, "shield_armor": 0.15, "recheck_interval": 0.5,
+  "on_damaged": [
+    {"do": "apply_status", "target": "self", "tag": "flux_recharging", "dur": "$recharge_delay"}
+  ],
+  "on_tick": [
+    {"if": {"ask": "has_status", "target": "self", "tag": "flux_recharging"},
+     "then": [],
+     "else": [
+       {"do": "apply_status", "target": "self", "tag": "flux_shield", "dur": "$recheck_interval", "armor_add": "$shield_armor"}
+     ]},
+    {"wait": "$recheck_interval"}
+  ],
+  "lore": {"flavor": ""}
+}

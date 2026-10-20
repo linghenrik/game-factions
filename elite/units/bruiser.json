@@ -1,0 +1,11 @@
+{
+  "id": "elite.unit.bruiser", "kind": "minion", "house_tag": "elite",
+  "name": "Executive Enforcer",
+  "description": "A slow, heavily armored melee minion that soaks 260 health and hits for 22 damage every 1.2 seconds at close range.",
+  "cost": 40.0, "hp": 260.0, "speed": 55.0,
+  "attack_damage": 22.0, "attack_range": 4.0, "attack_cooldown": 1.2,
+  "aggro_radius": 110.0,
+  "body": {"radius": 12.0},
+  "assets": {"model_3d": "elite_bruiser"},
+  "lore": {"flavor": ""}
+}

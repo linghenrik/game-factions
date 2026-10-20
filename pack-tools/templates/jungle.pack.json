@@ -1,0 +1,1 @@
+{ "id": "jungle_my_jungle", "version": "0.1.0", "category": "jungle", "name": "My Jungle", "order": 100, "dependencies": ["base"], "lore": {"summary": ""} }

@@ -1,0 +1,4 @@
+{ "id": "swarm.augment.signature_conduit.wider_huddle", "kind": "augment",
+  "name": "Wider Huddle", "description": "Widens Middle Management's buff radius by 60 units, unlocking once your team has 1 standing tower.",
+  "applies_to": "swarm.ability.signature_conduit", "deltas": {"radius": 60.0},
+  "unlock": {"team_tower_count": 1}, "lore": {"flavor": ""} }

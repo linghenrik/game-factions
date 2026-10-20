@@ -1,0 +1,4 @@
+{ "id": "swarm.augment.signature_conduit.synergy_boost", "kind": "augment",
+  "name": "Synergy Boost", "description": "Increases Middle Management's damage bonus by an additional 15%, unlocking once Conduit reaches 340 max health.",
+  "applies_to": "swarm.ability.signature_conduit", "deltas": {"dmg_buff": 0.15},
+  "unlock": {"hero_max_health": 340.0}, "lore": {"flavor": ""} }

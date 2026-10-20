@@ -1,0 +1,12 @@
+{ "id": "utility.ability.signature_breaker", "kind": "ability",
+  "sfx": {"cast": "utility_ability_cast"},
+  "name": "Overcharge Dash", "description": "Dashes 220 units at high speed, dealing 32 damage to enemies caught within an 80-unit radius.",
+  "default_key": "R",
+  "cost": {"cooldown": 8.0}, "cast_mobility": "mobile", "duration": 0.4,
+  "damage": 32.0, "radius": 57.0, "dash_speed": 900.0, "dash_dist": 220.0,
+  "on_cast": [
+    {"do": "dash", "speed": "$dash_speed", "distance": "$dash_dist", "hit_radius": "$radius"}
+  ],
+  "on_hit": [{"do": "deal_damage", "target": "hit", "amount": "$damage"}],
+  "lore": {"flavor": ""}
+}

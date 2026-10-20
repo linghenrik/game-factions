@@ -1,0 +1,12 @@
+{
+  "id": "elite.hero.ranger", "kind": "hero", "hero_class": "ranger", "house_tag": "elite",
+  "hp": 280.0, "speed": 125.0,
+  "signature_ability": "elite.ability.signature_ranger",
+  "abilities": [
+    "elite.ability.basic_ranger_shotgun", "elite.ability.basic_ranger_auto",
+    "elite.ability.basic_ranger_sniper", "elite.ability.signature_ranger",
+    "elite.ability.harvest"
+  ],
+  "assets": {"model_3d": "elite_ranger"},
+  "lore": {"title": "", "bio": "", "quote": ""}
+}

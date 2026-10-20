@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.signature_conduit_synergy_boost", "kind": "shop_item",
+  "name": "Synergy Boost", "description": "Unlocks Middle Management's Synergy Boost augment for 300 supply, adding an extra damage bonus once Conduit reaches 340 max health.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "swarm.augment.signature_conduit.synergy_boost", "signature_rank": 1, "price": 300.0, "lore": {"flavor": ""} }

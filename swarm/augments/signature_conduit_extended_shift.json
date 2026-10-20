@@ -1,0 +1,4 @@
+{ "id": "swarm.augment.signature_conduit.extended_shift", "kind": "augment",
+  "name": "Extended Shift", "description": "Extends Middle Management's buff duration by 2 seconds, unlocking once your team banks 400 supply.",
+  "applies_to": "swarm.ability.signature_conduit", "deltas": {"buff_dur": 2.0},
+  "unlock": {"team_supply": 400}, "lore": {"flavor": ""} }

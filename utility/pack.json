@@ -1,0 +1,1 @@
+{ "id": "utility", "version": "0.2.0", "category": "faction", "name": "Utility", "order": 30, "dependencies": ["base"], "lore": {"summary": ""} }

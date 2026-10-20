@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.signature_breaker_reinforcements", "kind": "shop_item",
+  "name": "Call Reinforcements", "description": "Unlocks Corporate Restructuring's Call Reinforcements augment for 300 supply, adding an extra decoy worker once your team banks 400 supply.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "swarm.augment.signature_breaker.reinforcements", "signature_rank": 1, "price": 300.0, "lore": {"flavor": ""} }

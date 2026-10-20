@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.harvest_moon", "kind": "shop_item",
+  "name": "Harvest Moon",
+  "description": "A 500-gold hero item that grants the Harvest Moon augment, healing and hasting nearby allies on every active skill cast.",
+  "channel": "hero", "house_tag": "elite",
+  "grant_kind": "augment", "grants": "elite.augment.harvest_moon", "price": 500.0, "lore": {"flavor": ""} }

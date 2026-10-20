@@ -1,0 +1,11 @@
+{
+  "id": "swarm.hero.conduit", "kind": "hero", "hero_class": "conduit", "house_tag": "swarm",
+  "hp": 300.0, "speed": 120.0,
+  "signature_ability": "swarm.ability.signature_conduit",
+  "abilities": [
+    "swarm.ability.basic_conduit_attack", "swarm.ability.basic_conduit_support",
+    "swarm.ability.signature_conduit", "swarm.ability.overtime"
+  ],
+  "assets": {"model_3d": "swarm_conduit"},
+  "lore": {"title": "", "bio": "", "quote": ""}
+}

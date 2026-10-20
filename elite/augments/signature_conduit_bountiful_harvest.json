@@ -1,0 +1,5 @@
+{ "id": "elite.augment.signature_conduit.bountiful_harvest", "kind": "augment",
+  "name": "Bountiful Harvest",
+  "description": "Unlocks once your team holds 1 tower and raises Fallow Ground's heal share by 15 percentage points.",
+  "applies_to": "elite.ability.signature_conduit", "deltas": {"heal_share": 0.15},
+  "unlock": {"team_tower_count": 1}, "lore": {"flavor": ""} }

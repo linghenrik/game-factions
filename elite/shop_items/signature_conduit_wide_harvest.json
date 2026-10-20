@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.signature_conduit_wide_harvest", "kind": "shop_item",
+  "name": "Wide Harvest",
+  "description": "A 300-gold commander item that grants the Wide Harvest augment, increasing the conduit's Fallow Ground heal radius by 80 units once unlocked.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "elite.augment.signature_conduit.wide_harvest", "signature_rank": 2, "price": 300.0, "lore": {"flavor": ""} }

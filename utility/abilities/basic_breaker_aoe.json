@@ -1,0 +1,10 @@
+{ "id": "utility.ability.basic_breaker_aoe", "kind": "ability",
+  "name": "Impact Burst", "description": "Deals 13 damage to everything in a 65-unit circle around the caster every 0.6 seconds.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 0.6}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 13.0, "radius": 65.0,
+  "on_cast": [
+    {"do": "deal_damage", "area": "circle", "at": "caster", "radius": "$radius", "amount": "$damage"}
+  ],
+  "lore": {"flavor": ""}
+}

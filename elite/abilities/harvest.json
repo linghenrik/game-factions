@@ -1,0 +1,10 @@
+{ "id": "elite.ability.harvest", "kind": "ability", "passive": true,
+  "name": "Perpetual Harvest",
+  "description": "Passively leeches 12% of all damage the hero deals back as self-healing for as long as they are alive.",
+  "cost": {}, "cast_mobility": "mobile", "duration": 1000000.0,
+  "leech_pct": 0.12,
+  "on_cast": [
+    {"do": "apply_status", "target": "self", "tag": "harvest_leech", "dur": 1000000.0, "leech": "$leech_pct"}
+  ],
+  "lore": {"flavor": ""}
+}

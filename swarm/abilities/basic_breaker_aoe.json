@@ -1,0 +1,10 @@
+{ "id": "swarm.ability.basic_breaker_aoe", "kind": "ability",
+  "name": "Cubicle Smash", "description": "Slams the ground in a 70-unit circle around the caster for 16 damage on a 0.6-second cooldown.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 0.6}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 16.0, "radius": 70.0,
+  "on_cast": [
+    {"do": "deal_damage", "area": "circle", "at": "caster", "radius": "$radius", "amount": "$damage"}
+  ],
+  "lore": {"flavor": ""}
+}

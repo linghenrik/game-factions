@@ -1,0 +1,11 @@
+{ "id": "elite.augment.harvest_moon", "kind": "augment",
+  "name": "Harvest Moon",
+  "description": "Adds a burst to every active skill cast that heals for 25 and hastes allies within 180 units by 30% move speed for 3 seconds.",
+  "applies_to": "base.ability.active_skills_group",
+  "add_hooks": {
+    "on_cast": [
+      {"do": "heal", "area": "circle", "at": "caster", "radius": 180.0, "amount": 25.0},
+      {"do": "apply_status", "area": "circle", "at": "caster", "radius": 180.0, "filter": "ally",
+        "tag": "hasted", "dur": 3.0, "speed_mult": 1.3}
+    ]
+  }, "lore": {"flavor": ""} }

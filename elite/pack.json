@@ -1,0 +1,1 @@
+{ "id": "elite", "version": "0.2.0", "category": "faction", "name": "Elite", "order": 20, "dependencies": ["base"], "lore": {"summary": ""} }

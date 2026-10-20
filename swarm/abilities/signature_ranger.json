@@ -1,0 +1,17 @@
+{ "id": "swarm.ability.signature_ranger", "kind": "ability",
+  "sfx": {"cast": "swarm_ability_cast"},
+  "name": "Layoff Notice", "description": "Fires a piercing shot up to 500 units for 20 damage that also shreds the target's armor by 8% for 5 seconds.",
+  "default_key": "R",
+  "cost": {"cooldown": 6.0}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 20.0, "range": 500.0, "speed": 900.0, "radius": 7.0,
+  "shred_dur": 5.0, "shred_amount": -0.08,
+  "on_cast": [
+    {"do": "spawn", "archetype": "projectile", "count": 1, "spread_deg": 0.0,
+     "speed": "$speed", "hit_radius": "$radius", "range": "$range", "pierce": true}
+  ],
+  "on_hit": [
+    {"do": "deal_damage", "target": "hit", "amount": "$damage"},
+    {"do": "apply_status", "target": "hit", "tag": "layoff_shred", "dur": "$shred_dur", "armor_add": "$shred_amount"}
+  ],
+  "lore": {"flavor": ""}
+}

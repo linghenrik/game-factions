@@ -1,0 +1,5 @@
+{ "id": "elite.augment.signature_ranger.extended_range", "kind": "augment",
+  "name": "Extended Range",
+  "description": "Unlocks once the ranger reaches 320 max health and extends Long Season's range by 100 units.",
+  "applies_to": "elite.ability.signature_ranger", "deltas": {"range": 100.0},
+  "unlock": {"hero_max_health": 320.0}, "lore": {"flavor": ""} }

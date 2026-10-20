@@ -1,0 +1,11 @@
+{ "id": "elite.ability.basic_breaker_cone", "kind": "ability",
+  "name": "Wide Cleave",
+  "description": "Swings through a broad 60-degree arc up to 90 units in front of the breaker, dealing 12 damage to everything it touches.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 0.6}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 12.0, "range": 90.0, "half_angle": 60.0,
+  "on_cast": [
+    {"do": "deal_damage", "area": "cone", "range": "$range", "half_angle": "$half_angle", "amount": "$damage"}
+  ],
+  "lore": {"flavor": ""}
+}

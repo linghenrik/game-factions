@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.signature_conduit_extended_shift", "kind": "shop_item",
+  "name": "Extended Shift", "description": "Unlocks Middle Management's Extended Shift augment for 300 supply, lengthening its buff duration once your team banks 400 supply.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "swarm.augment.signature_conduit.extended_shift", "signature_rank": 0, "price": 300.0, "lore": {"flavor": ""} }

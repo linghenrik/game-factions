@@ -1,0 +1,6 @@
+{ "id": "swarm.augment.quarterly_bonus", "kind": "augment",
+  "name": "Quarterly Bonus", "description": "Heals the caster for 20% of missing health every time an active skill is cast.",
+  "applies_to": "base.ability.active_skills_group",
+  "add_hooks": {
+    "on_cast": [{"do": "heal", "target": "self", "pct_missing_hp_of": "self", "pct": 0.2}]
+  }, "lore": {"flavor": ""} }

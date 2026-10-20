@@ -1,0 +1,10 @@
+{ "id": "swarm.ability.basic_conduit_attack", "kind": "ability",
+  "name": "Static Jolt", "description": "Fires a narrow jolt up to 320 units for 10 damage, costing 4 energy on a 0.3-second cooldown.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 0.3, "energy": 4.0}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 10.0, "range": 320.0, "half_angle": 8.0,
+  "on_cast": [
+    {"do": "deal_damage", "area": "cone", "range": "$range", "half_angle": "$half_angle", "amount": "$damage"}
+  ],
+  "lore": {"flavor": ""}
+}

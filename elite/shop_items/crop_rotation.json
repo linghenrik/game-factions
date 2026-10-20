@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.crop_rotation", "kind": "shop_item",
+  "name": "Crop Rotation",
+  "description": "A 400-gold hero item that grants the Crop Rotation augment, rooting nearby enemies whenever an active skill is cast.",
+  "channel": "hero", "house_tag": "elite",
+  "grant_kind": "augment", "grants": "elite.augment.crop_rotation", "price": 400.0, "lore": {"flavor": ""} }

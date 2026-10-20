@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.bountiful_reap", "kind": "shop_item",
+  "name": "Bountiful Reap",
+  "description": "A 450-gold hero item that grants the Bountiful Reap augment, healing the caster on every basic attack hit.",
+  "channel": "hero", "house_tag": "elite",
+  "grant_kind": "augment", "grants": "elite.augment.bountiful_reap", "price": 450.0, "lore": {"flavor": ""} }

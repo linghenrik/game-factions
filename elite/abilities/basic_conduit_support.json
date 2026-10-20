@@ -1,0 +1,12 @@
+{ "id": "elite.ability.basic_conduit_support", "kind": "ability",
+  "name": "Energy Transfer",
+  "description": "Channels a supportive pulse into allies within a narrow cone up to 260 units away, healing them for 8 and restoring 3 energy per second for 1 second.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 0.3, "energy": 4.0}, "cast_mobility": "locked", "duration": 0.0,
+  "hps": 8.0, "eps": 3.0, "dur": 1.0, "range": 260.0, "half_angle": 10.0,
+  "on_cast": [
+    {"do": "apply_status", "area": "cone", "filter": "ally", "range": "$range", "half_angle": "$half_angle",
+     "tag": "conduit_support", "dur": "$dur", "hps": "$hps", "eps": "$eps"}
+  ],
+  "lore": {"flavor": ""}
+}

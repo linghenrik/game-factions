@@ -1,0 +1,15 @@
+{ "id": "swarm.ability.signature_breaker", "kind": "ability",
+  "sfx": {"cast": "swarm_ability_cast"},
+  "name": "Corporate Restructuring", "description": "Dashes 160 units forward for 34 damage in its path, then spawns 2 decoy workers that mimic the caster for 8 seconds.",
+  "default_key": "R",
+  "cost": {"cooldown": 8.0}, "cast_mobility": "mobile", "duration": 0.0,
+  "damage": 34.0, "radius": 67.0, "dash_speed": 480.0, "dash_dist": 160.0,
+  "decoy_count": 2, "decoy_ttl": 8.0,
+  "on_cast": [
+    {"do": "dash", "speed": "$dash_speed", "distance": "$dash_dist", "hit_radius": "$radius"},
+    {"do": "spawn", "unit": "swarm.unit.decoy_worker", "count": "$decoy_count", "around": "caster",
+     "radius": 60.0, "ttl": "$decoy_ttl", "mimic": "caster"}
+  ],
+  "on_hit": [{"do": "deal_damage", "target": "hit", "amount": "$damage"}],
+  "lore": {"flavor": ""}
+}

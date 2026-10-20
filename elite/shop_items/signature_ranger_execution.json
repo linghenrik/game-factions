@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.signature_ranger_execution", "kind": "shop_item",
+  "name": "Execution",
+  "description": "A 300-gold commander item that grants the Execution augment, adding 15 bonus damage to the ranger's Long Season execute once unlocked.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "elite.augment.signature_ranger.execution", "signature_rank": 1, "price": 300.0, "lore": {"flavor": ""} }

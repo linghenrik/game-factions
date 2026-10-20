@@ -1,0 +1,117 @@
+# Asset Credits
+
+Most shipped 3D models and textures are **CC0 1.0 Universal / public domain** —
+no attribution required, but the creators absolutely deserve it (and a coffee:
+[patreon.com/quaternius](https://www.patreon.com/quaternius)). UI icons are
+**CC BY 3.0** — attribution required; see the section below.
+
+The shipped `.glb` files in each pack's `assets/models/` are converted from the
+original downloads by the game's own build tools (animation clips renamed to
+the canonical `idle`/`run`/`attack`/`hit`/`death` set, unused clips dropped).
+
+## Ultimate Animated Character Pack — Quaternius
+
+- Source: <https://quaternius.com/packs/ultimatedanimatedcharacter.html>
+- License: CC0 1.0 <https://creativecommons.org/publicdomain/zero/1.0/>
+- Model keys: `worker` (Worker_Male), `base_lance` (Cowboy_Male),
+  `base_rampage` (Viking_Male), `base_swarmling` (Goblin_Male),
+  `base_bruiser` (Pirate_Male), `base_archer` (BlueSoldier_Female),
+  `elite_breaker` (Knight_Golden_Male), `elite_ranger` (BlueSoldier_Male),
+  `elite_conduit` (Wizard), `elite_bruiser` (Knight_Male)
+
+## Cute Animated Monsters Pack — Quaternius
+
+- Source: <https://quaternius.com/packs/cutemonsters.html>
+- License: CC0 1.0
+- Model keys: `swarm_breaker` (Cyclops), `swarm_ranger` (Alien_Tall),
+  `swarm_conduit` (Cthulhu), `swarm_swarmling` (Bat), `tree_pine` (Tree,
+  terrain prop — converted with an arbitrary `idle=Idle` clip mapping since
+  terrain models require no specific animations)
+
+## Animated Mech Pack — Quaternius
+
+- Source: <https://quaternius.com/packs/animatedmech.html>
+- License: CC0 1.0
+- Model keys: `utility_breaker` (Mike), `utility_ranger` (Leela),
+  `utility_conduit` (George), `utility_archer` (Stan)
+
+## Single models — Quaternius, via Poly Pizza
+
+- `core` — "Big Crystal": <https://poly.pizza/m/pf5lzmgr2J> (CC0 1.0)
+- `tower_arrow` — "Turret Cannon": <https://poly.pizza/m/mNJ6poH7Cp> (CC0 1.0)
+- `wall_stone` — "Stone Wall": <https://poly.pizza/m/tdeAOh3LQV> (CC0 1.0)
+
+## Ground texture — ambientCG
+
+- Source: <https://ambientcg.com/view?id=Grass004>
+- License: CC0 (public domain), per ambientCG's stated terms
+- Texture key: `ground_grass` (Grass004, color/diffuse map only)
+
+## UI icons — game-icons.net
+
+CC BY 3.0 <https://creativecommons.org/licenses/by/3.0/> — attribution
+required (unlike the CC0 3D models above). Source:
+<https://github.com/game-icons/icons>.
+
+- `health-potion` (Second Wind) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/health-potion.html>
+- `bow-arrow` (Piercing Shot) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/bow-arrow.html>
+- `control-tower` (Timeclock Turret) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/control-tower.html>
+- `ancient-sword` (damage stat skills) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/ancient-sword.html>
+- `explosion-rays` (area-of-effect stat skills) — Lorc,
+  <https://game-icons.net/1x1/lorc/explosion-rays.html>
+- `coins` (Overtime Bonus) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/coins.html>
+- `guarded-tower` (Silo Turret) — Lorc,
+  <https://game-icons.net/1x1/lorc/guarded-tower.html>
+- `crosshair` (range stat skills) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/crosshair.html>
+- `ice-cube` (Stasis Lattice) — Lorc,
+  <https://game-icons.net/1x1/lorc/ice-cube.html>
+- `castle` (Psi Nexus) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/castle.html>
+- `eye-target` (vision stat skills) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/eye-target.html>
+- `base-dome` (Psi Dome) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/base-dome.html>
+- `miner` (district worker request) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/miner.html>
+- `megaphone` (Sales Quota Turret) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/megaphone.html>
+- `cctv-camera` (Blacklist) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/cctv-camera.html>
+- `shaking-hands` (HR Outpost) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/shaking-hands.html>
+- `party-flags` (Group Onboarding) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/party-flags.html>
+- `scythe` (Threshing Post) — Lorc,
+  <https://game-icons.net/1x1/lorc/scythe.html>
+- `pitchfork` (War Harvest) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/pitchfork.html>
+- `barn` (Grange Hall) — Delapouite,
+  <https://game-icons.net/1x1/delapouite/barn.html>
+- `thorny-vine` (Reap and Sow) — Lorc,
+  <https://game-icons.net/1x1/lorc/thorny-vine.html>
+- `energy-shield` (Photon Bastion) — Lorc,
+  <https://game-icons.net/1x1/lorc/energy-shield.html>
+- `laser-warning` (Photon Lift) — Lorc,
+  <https://game-icons.net/1x1/lorc/laser-warning.html>
+- `radar-sweep` (Pulse Array) — Lorc,
+  <https://game-icons.net/1x1/lorc/radar-sweep.html>
+- `land-mine` (Minefield) — Lorc,
+  <https://game-icons.net/1x1/lorc/land-mine.html>
+- `bullets` (rate-of-fire stat skills) — Lorc,
+  <https://game-icons.net/1x1/lorc/bullets.html>
+
+## Placeholder
+
+- `placeholder` — generated by the game's own build tools (original work by
+  the game's author, under the same terms as the rest of this repository).
+
+## Audio
+
+Every shipped sound is CC0 or public domain; each pack's `CREDITS.md` lists its
+files, sources and edits (checked by `tools/content/audio_credits.py`).

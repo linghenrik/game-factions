@@ -1,0 +1,12 @@
+{
+  "id": "utility.hero.ranger", "kind": "hero", "hero_class": "ranger", "house_tag": "utility",
+  "hp": 270.0, "speed": 130.0,
+  "signature_ability": "utility.ability.signature_ranger",
+  "abilities": [
+    "utility.ability.basic_ranger_shotgun", "utility.ability.basic_ranger_auto",
+    "utility.ability.basic_ranger_sniper", "utility.ability.signature_ranger",
+    "utility.ability.flux"
+  ],
+  "assets": {"model_3d": "utility_ranger"},
+  "lore": {"title": "", "bio": "", "quote": ""}
+}

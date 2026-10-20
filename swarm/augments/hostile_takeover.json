@@ -1,0 +1,19 @@
+{ "id": "swarm.augment.hostile_takeover", "kind": "augment",
+  "name": "Hostile Takeover", "description": "Adds vision and minion command to any active skill cast, sacrificing 2 nearby minions for a 35% swarm damage buff when more than 3 are grouped up, or a 15% buff otherwise.",
+  "applies_to": "base.ability.active_skills_group",
+  "add_hooks": {
+    "on_cast": [
+      {"do": "reveal", "at": "caster", "radius": 200.0, "dur": 4.0},
+      {"do": "direct_minions", "at": "caster", "radius": 200.0, "search_radius": 600.0, "dur": 4.0},
+      {"if": {"ask": "entities_in_radius", "radius": 200.0, "filter": "ally", "kind": "minion", "gt": 3},
+       "then": [
+         {"do": "sacrifice_allies", "at": "caster", "radius": 200.0, "count": 2, "kind": "minion"},
+         {"do": "apply_status", "area": "circle", "at": "caster", "radius": 200.0, "kind": "minion",
+           "filter": "ally", "tag": "swarm_buff", "dur": 6.0, "dmg_mult": 1.35}
+       ],
+       "else": [
+         {"do": "apply_status", "area": "circle", "at": "caster", "radius": 200.0, "kind": "minion",
+           "filter": "ally", "tag": "swarm_buff", "dur": 4.0, "dmg_mult": 1.15}
+       ]}
+    ]
+  }, "lore": {"flavor": ""} }

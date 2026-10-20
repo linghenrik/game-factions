@@ -1,0 +1,4 @@
+{ "id": "swarm.augment.signature_ranger.prolonged_layoff", "kind": "augment",
+  "name": "Prolonged Layoff", "description": "Extends Layoff Notice's armor-shred duration by 2 seconds, unlocking once your team has 1 standing tower.",
+  "applies_to": "swarm.ability.signature_ranger", "deltas": {"shred_dur": 2.0},
+  "unlock": {"team_tower_count": 1}, "lore": {"flavor": ""} }

@@ -1,0 +1,1 @@
+{ "id": "swarm", "version": "0.2.0", "category": "faction", "name": "Swarm", "order": 10, "dependencies": ["base"], "lore": {"summary": ""} }

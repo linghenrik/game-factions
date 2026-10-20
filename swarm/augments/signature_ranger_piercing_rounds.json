@@ -1,0 +1,4 @@
+{ "id": "swarm.augment.signature_ranger.piercing_rounds", "kind": "augment",
+  "name": "Piercing Rounds", "description": "Adds 7 damage to Layoff Notice's piercing shot, unlocking after your team gets 3 kills.",
+  "applies_to": "swarm.ability.signature_ranger", "deltas": {"damage": 7.0},
+  "unlock": {"team_kills": 3}, "lore": {"flavor": ""} }

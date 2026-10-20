@@ -1,0 +1,13 @@
+{ "id": "elite.ability.signature_breaker", "kind": "ability",
+  "sfx": {"cast": "elite_ability_cast"},
+  "name": "Threshing Floor",
+  "description": "Slams the ground in a 100-unit radius around the breaker, dealing 30 damage and stunning everything caught inside for 1 second.",
+  "default_key": "R",
+  "cost": {"cooldown": 9.0}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 30.0, "radius": 100.0, "stun_dur": 1.0,
+  "on_cast": [
+    {"do": "deal_damage", "area": "circle", "at": "caster", "radius": "$radius", "amount": "$damage"},
+    {"do": "apply_status", "area": "circle", "at": "caster", "radius": "$radius", "tag": "stun", "dur": "$stun_dur"}
+  ],
+  "lore": {"flavor": ""}
+}

@@ -1,0 +1,14 @@
+{ "id": "utility.ability.signature_ranger", "kind": "ability",
+  "sfx": {"cast": "utility_ability_cast"},
+  "name": "Temporal Lock", "description": "Roots enemies in a 30-degree cone out to 320 units for 1.8 seconds while hasting the caster's move speed by 35% for 1.5 seconds.",
+  "default_key": "R",
+  "cost": {"cooldown": 9.0}, "cast_mobility": "locked", "duration": 0.0,
+  "range": 320.0, "half_angle": 30.0, "root_dur": 1.8,
+  "haste_dur": 1.5, "haste_mult": 1.35,
+  "on_cast": [
+    {"do": "apply_status", "area": "cone", "range": "$range", "half_angle": "$half_angle",
+     "tag": "root", "dur": "$root_dur"},
+    {"do": "apply_status", "target": "self", "tag": "temporal_haste", "dur": "$haste_dur", "speed_mult": "$haste_mult"}
+  ],
+  "lore": {"flavor": ""}
+}

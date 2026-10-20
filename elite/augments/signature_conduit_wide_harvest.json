@@ -1,0 +1,5 @@
+{ "id": "elite.augment.signature_conduit.wide_harvest", "kind": "augment",
+  "name": "Wide Harvest",
+  "description": "Unlocks once the conduit reaches 340 max health and increases Fallow Ground's heal radius by 80 units.",
+  "applies_to": "elite.ability.signature_conduit", "deltas": {"heal_radius": 80.0},
+  "unlock": {"hero_max_health": 340.0}, "lore": {"flavor": ""} }

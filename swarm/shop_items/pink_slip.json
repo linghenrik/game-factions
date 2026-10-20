@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.pink_slip", "kind": "shop_item",
+  "name": "Pink Slip", "description": "Purchases the Pink Slip augment for 400 supply, adding an armor-shredding effect to basic attacks.",
+  "channel": "hero", "house_tag": "swarm",
+  "grant_kind": "augment", "grants": "swarm.augment.pink_slip", "price": 400.0, "lore": {"flavor": ""} }

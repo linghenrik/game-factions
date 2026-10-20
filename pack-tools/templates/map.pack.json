@@ -1,0 +1,1 @@
+{ "id": "map_my_map", "version": "0.1.0", "category": "map", "name": "My Map", "order": 100, "dependencies": ["base"], "lore": {"summary": ""} }

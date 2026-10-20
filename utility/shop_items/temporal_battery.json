@@ -1,0 +1,4 @@
+{ "id": "utility.shop_item.temporal_battery", "kind": "shop_item",
+  "name": "Temporal Battery", "description": "Costs 450 and grants an augment that shields nearby allies within 180 units with 0.2 armor for 3 seconds whenever an active ability is cast.",
+  "channel": "hero", "house_tag": "utility",
+  "grant_kind": "augment", "grants": "utility.augment.temporal_battery", "price": 450.0, "lore": {"flavor": ""} }

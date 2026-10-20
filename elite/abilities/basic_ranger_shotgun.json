@@ -1,0 +1,15 @@
+{ "id": "elite.ability.basic_ranger_shotgun", "kind": "ability",
+  "name": "Scatter Blast",
+  "description": "Blasts 5 pellets in a wide 40-degree spread up to 260 units for 8 damage each, kicking the ranger back with heavy recoil.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 1.1}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 8.0, "range": 260.0, "speed": 600.0, "radius": 7.0,
+  "proj_count": 5, "spread_deg": 40.0, "recoil": -50.0,
+  "on_cast": [
+    {"do": "spawn", "archetype": "projectile", "count": "$proj_count", "spread_deg": "$spread_deg",
+     "speed": "$speed", "hit_radius": "$radius", "range": "$range", "pierce": false},
+    {"do": "displace", "target": "self", "distance": "$recoil"}
+  ],
+  "on_hit": [{"do": "deal_damage", "target": "hit", "amount": "$damage"}],
+  "lore": {"flavor": ""}
+}

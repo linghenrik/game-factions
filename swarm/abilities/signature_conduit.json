@@ -1,0 +1,12 @@
+{ "id": "swarm.ability.signature_conduit", "kind": "ability",
+  "sfx": {"cast": "swarm_ability_cast"},
+  "name": "Middle Management", "description": "Empowers allies within 260 units with 20% bonus damage and 15% bonus speed for 4 seconds, costing 20 energy.",
+  "default_key": "R",
+  "cost": {"cooldown": 10.0, "energy": 20.0}, "cast_mobility": "mobile", "duration": 0.0,
+  "radius": 260.0, "buff_dur": 4.0, "dmg_buff": 1.2, "spd_buff": 1.15,
+  "on_cast": [
+    {"do": "apply_status", "area": "circle", "at": "caster", "filter": "ally", "radius": "$radius",
+     "tag": "middle_management", "dur": "$buff_dur", "dmg_mult": "$dmg_buff", "speed_mult": "$spd_buff"}
+  ],
+  "lore": {"flavor": ""}
+}

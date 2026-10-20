@@ -1,0 +1,10 @@
+{ "id": "swarm.ability.basic_breaker_cone", "kind": "ability",
+  "name": "Wide Swing", "description": "Swings a wide 60-degree arc up to 90 units for 12 damage on a 0.6-second cooldown.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 0.6}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 12.0, "range": 90.0, "half_angle": 60.0,
+  "on_cast": [
+    {"do": "deal_damage", "area": "cone", "range": "$range", "half_angle": "$half_angle", "amount": "$damage"}
+  ],
+  "lore": {"flavor": ""}
+}

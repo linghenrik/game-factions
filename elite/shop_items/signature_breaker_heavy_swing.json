@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.signature_breaker_heavy_swing", "kind": "shop_item",
+  "name": "Heavy Swing",
+  "description": "A 250-gold commander item that grants the Heavy Swing augment, adding 10 damage to the breaker's Threshing Floor once unlocked.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "elite.augment.signature_breaker.heavy_swing", "signature_rank": 0, "price": 250.0, "lore": {"flavor": ""} }

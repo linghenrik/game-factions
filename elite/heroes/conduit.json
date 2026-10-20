@@ -1,0 +1,11 @@
+{
+  "id": "elite.hero.conduit", "kind": "hero", "hero_class": "conduit", "house_tag": "elite",
+  "hp": 300.0, "speed": 120.0,
+  "signature_ability": "elite.ability.signature_conduit",
+  "abilities": [
+    "elite.ability.basic_conduit_attack", "elite.ability.basic_conduit_support",
+    "elite.ability.signature_conduit", "elite.ability.harvest"
+  ],
+  "assets": {"model_3d": "elite_conduit"},
+  "lore": {"title": "", "bio": "", "quote": ""}
+}

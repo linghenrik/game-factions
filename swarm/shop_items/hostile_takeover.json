@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.hostile_takeover", "kind": "shop_item",
+  "name": "Hostile Takeover", "description": "Purchases the Hostile Takeover augment for 550 supply, turning any active skill cast into a minion-sacrificing swarm buff.",
+  "channel": "hero", "house_tag": "swarm",
+  "grant_kind": "augment", "grants": "swarm.augment.hostile_takeover", "price": 550.0, "lore": {"flavor": ""} }

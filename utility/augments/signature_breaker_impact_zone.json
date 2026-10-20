@@ -1,0 +1,4 @@
+{ "id": "utility.augment.signature_breaker.impact_zone", "kind": "augment",
+  "name": "Impact Zone", "description": "Adds 20 units to Overcharge Dash's damage radius once the hero reaches 400 max health.",
+  "applies_to": "utility.ability.signature_breaker", "deltas": {"radius": 20.0},
+  "unlock": {"hero_max_health": 400.0}, "lore": {"flavor": ""} }

@@ -1,0 +1,13 @@
+{ "id": "utility.ability.basic_ranger_auto", "kind": "ability",
+  "name": "Auto Rifle", "description": "Fires a single 7.5-damage projectile up to 380 units away every 0.25 seconds with slight recoil.",
+  "default_key": "Q", "default_fire_key": "MOUSE_LEFT",
+  "cost": {"cooldown": 0.25}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 7.5, "range": 380.0, "speed": 750.0, "radius": 5.0, "recoil": -8.0,
+  "on_cast": [
+    {"do": "spawn", "archetype": "projectile", "count": 1, "spread_deg": 0.0,
+     "speed": "$speed", "hit_radius": "$radius", "range": "$range", "pierce": false},
+    {"do": "displace", "target": "self", "distance": "$recoil"}
+  ],
+  "on_hit": [{"do": "deal_damage", "target": "hit", "amount": "$damage"}],
+  "lore": {"flavor": ""}
+}

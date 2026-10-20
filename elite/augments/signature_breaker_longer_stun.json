@@ -1,0 +1,5 @@
+{ "id": "elite.augment.signature_breaker.longer_stun", "kind": "augment",
+  "name": "Longer Stun",
+  "description": "Unlocks once your team holds 1 tower and extends Threshing Floor's stun duration by 0.5 seconds.",
+  "applies_to": "elite.ability.signature_breaker", "deltas": {"stun_dur": 0.5},
+  "unlock": {"team_tower_count": 1}, "lore": {"flavor": ""} }

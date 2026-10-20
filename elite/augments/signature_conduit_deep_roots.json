@@ -1,0 +1,5 @@
+{ "id": "elite.augment.signature_conduit.deep_roots", "kind": "augment",
+  "name": "Deep Roots",
+  "description": "Unlocks at 400 team supply and extends Fallow Ground's root duration by 1 second.",
+  "applies_to": "elite.ability.signature_conduit", "deltas": {"root_dur": 1.0},
+  "unlock": {"team_supply": 400}, "lore": {"flavor": ""} }

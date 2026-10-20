@@ -1,0 +1,4 @@
+{ "id": "utility.augment.signature_ranger.overclocked_haste", "kind": "augment",
+  "name": "Overclocked Haste", "description": "Increases Temporal Lock's self-haste bonus by 15% once your team controls 1 tower.",
+  "applies_to": "utility.ability.signature_ranger", "deltas": {"haste_mult": 0.15},
+  "unlock": {"team_tower_count": 1}, "lore": {"flavor": ""} }

@@ -1,0 +1,4 @@
+{ "id": "swarm.augment.signature_breaker.reinforcements", "kind": "augment",
+  "name": "Call Reinforcements", "description": "Spawns 1 additional decoy worker with Corporate Restructuring, unlocking once your team banks 400 supply.",
+  "applies_to": "swarm.ability.signature_breaker", "deltas": {"decoy_count": 1},
+  "unlock": {"team_supply": 400}, "lore": {"flavor": ""} }

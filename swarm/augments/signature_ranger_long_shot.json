@@ -1,0 +1,4 @@
+{ "id": "swarm.augment.signature_ranger.long_shot", "kind": "augment",
+  "name": "Long Shot", "description": "Extends Layoff Notice's range by 100 units, unlocking once Ranger reaches 320 max health.",
+  "applies_to": "swarm.ability.signature_ranger", "deltas": {"range": 100.0},
+  "unlock": {"hero_max_health": 320.0}, "lore": {"flavor": ""} }

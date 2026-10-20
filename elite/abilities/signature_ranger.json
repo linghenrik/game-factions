@@ -1,0 +1,24 @@
+{ "id": "elite.ability.signature_ranger", "kind": "ability",
+  "sfx": {"cast": "elite_ability_cast"},
+  "name": "Long Season",
+  "description": "Fires a long-range shot up to 550 units for 22 damage, dealing 40 bonus damage on top if the target is below 30% health.",
+  "default_key": "R",
+  "cost": {"cooldown": 7.0}, "cast_mobility": "locked", "duration": 0.0,
+  "damage": 22.0, "bonus_damage": 40.0, "hp_frac_gate": 0.3,
+  "range": 550.0, "speed": 950.0, "radius": 5.0,
+  "on_cast": [
+    {"do": "spawn", "archetype": "projectile", "count": 1, "spread_deg": 0.0,
+     "speed": "$speed", "hit_radius": "$radius", "range": "$range", "pierce": false}
+  ],
+  "on_hit": [
+    {"if": {"ask": "hp_frac_of", "target": "hit", "lt": "$hp_frac_gate"},
+     "then": [
+       {"do": "deal_damage", "target": "hit", "amount": "$damage"},
+       {"do": "deal_damage", "target": "hit", "amount": "$bonus_damage"}
+     ],
+     "else": [
+       {"do": "deal_damage", "target": "hit", "amount": "$damage"}
+     ]}
+  ],
+  "lore": {"flavor": ""}
+}

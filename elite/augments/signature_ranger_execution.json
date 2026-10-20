@@ -1,0 +1,5 @@
+{ "id": "elite.augment.signature_ranger.execution", "kind": "augment",
+  "name": "Execution",
+  "description": "Unlocks at 400 team supply and adds 15 bonus damage to Long Season's low-health execute.",
+  "applies_to": "elite.ability.signature_ranger", "deltas": {"bonus_damage": 15.0},
+  "unlock": {"team_supply": 400}, "lore": {"flavor": ""} }

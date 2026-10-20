@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.signature_conduit_wider_huddle", "kind": "shop_item",
+  "name": "Wider Huddle", "description": "Unlocks Middle Management's Wider Huddle augment for 300 supply, widening its buff radius once your team has 1 standing tower.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "swarm.augment.signature_conduit.wider_huddle", "signature_rank": 2, "price": 300.0, "lore": {"flavor": ""} }

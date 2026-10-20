@@ -1,0 +1,9 @@
+{
+  "id": "swarm.unit.decoy_worker", "kind": "minion", "house_tag": "swarm",
+  "name": "Decoy Worker", "description": "An unarmed lookalike spawned by Corporate Restructuring that wanders the field mimicking its caster to draw enemy fire.",
+  "cost": 0.0, "hp": 25.0, "speed": 60.0,
+  "attack_damage": 0.0, "attack_range": 0.0, "attack_cooldown": 999.0,
+  "aggro_radius": 0.0,
+  "assets": {"model_3d": "worker"},
+  "lore": {"flavor": ""}
+}

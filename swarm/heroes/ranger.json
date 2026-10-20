@@ -1,0 +1,12 @@
+{
+  "id": "swarm.hero.ranger", "kind": "hero", "hero_class": "ranger", "house_tag": "swarm",
+  "hp": 280.0, "speed": 125.0,
+  "signature_ability": "swarm.ability.signature_ranger",
+  "abilities": [
+    "swarm.ability.basic_ranger_shotgun", "swarm.ability.basic_ranger_auto",
+    "swarm.ability.basic_ranger_sniper", "swarm.ability.signature_ranger",
+    "swarm.ability.overtime"
+  ],
+  "assets": {"model_3d": "swarm_ranger"},
+  "lore": {"title": "", "bio": "", "quote": ""}
+}

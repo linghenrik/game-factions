@@ -1,0 +1,8 @@
+{ "id": "swarm.augment.pink_slip", "kind": "augment",
+  "name": "Pink Slip", "description": "Adds a shred to every basic attack, cutting the target's armor by 10% for 2 seconds.",
+  "applies_to": "base.ability.basic_attack_group",
+  "add_hooks": {
+    "on_hit": [
+      {"do": "apply_status", "target": "hit", "tag": "shredded", "dur": 2.0, "armor_add": -0.1}
+    ]
+  }, "lore": {"flavor": ""} }

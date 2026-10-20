@@ -1,0 +1,4 @@
+{ "id": "swarm.shop_item.signature_ranger_long_shot", "kind": "shop_item",
+  "name": "Long Shot", "description": "Unlocks Layoff Notice's Long Shot augment for 300 supply, extending its range once Ranger reaches 320 max health.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "swarm.augment.signature_ranger.long_shot", "signature_rank": 1, "price": 300.0, "lore": {"flavor": ""} }

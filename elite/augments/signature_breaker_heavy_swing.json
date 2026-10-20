@@ -1,0 +1,5 @@
+{ "id": "elite.augment.signature_breaker.heavy_swing", "kind": "augment",
+  "name": "Heavy Swing",
+  "description": "Unlocks once your team gets 3 kills and adds 10 damage to Threshing Floor.",
+  "applies_to": "elite.ability.signature_breaker", "deltas": {"damage": 10.0},
+  "unlock": {"team_kills": 3}, "lore": {"flavor": ""} }

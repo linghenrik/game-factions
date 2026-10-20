@@ -1,0 +1,12 @@
+{ "id": "utility.ability.signature_conduit", "kind": "ability",
+  "sfx": {"cast": "utility_ability_cast"},
+  "name": "Overclock Field", "description": "Grants allies in a 20-degree cone out to 260 units a 3-second buff that raises move speed by 40% and adds 0.25 armor.",
+  "default_key": "R",
+  "cost": {"cooldown": 10.0, "energy": 25.0}, "cast_mobility": "mobile", "duration": 0.0,
+  "range": 260.0, "half_angle": 20.0, "buff_dur": 3.0, "haste_mult": 1.4, "shield_armor": 0.25,
+  "on_cast": [
+    {"do": "apply_status", "area": "cone", "range": "$range", "half_angle": "$half_angle", "filter": "ally",
+     "tag": "overclock", "dur": "$buff_dur", "speed_mult": "$haste_mult", "armor_add": "$shield_armor"}
+  ],
+  "lore": {"flavor": ""}
+}

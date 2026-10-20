@@ -1,0 +1,4 @@
+{ "id": "swarm.augment.signature_breaker.overcharge", "kind": "augment",
+  "name": "Overcharge Protocol", "description": "Adds 12 damage to Corporate Restructuring's dash impact, unlocking after your team gets 3 kills.",
+  "applies_to": "swarm.ability.signature_breaker", "deltas": {"damage": 12.0},
+  "unlock": {"team_kills": 3}, "lore": {"flavor": ""} }

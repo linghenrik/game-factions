@@ -1,0 +1,4 @@
+{ "id": "utility.shop_item.signature_breaker_overcharged_dash", "kind": "shop_item",
+  "name": "Overcharged Dash", "description": "Costs 250 and, after your team gets 3 kills, adds 10 damage to Breaker's Overcharge Dash.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "utility.augment.signature_breaker.overcharged_dash", "signature_rank": 0, "price": 250.0, "lore": {"flavor": ""} }

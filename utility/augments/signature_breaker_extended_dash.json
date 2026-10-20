@@ -1,0 +1,4 @@
+{ "id": "utility.augment.signature_breaker.extended_dash", "kind": "augment",
+  "name": "Extended Dash", "description": "Adds 60 units to Overcharge Dash's travel distance once your team controls 1 tower.",
+  "applies_to": "utility.ability.signature_breaker", "deltas": {"dash_dist": 60.0},
+  "unlock": {"team_tower_count": 1}, "lore": {"flavor": ""} }

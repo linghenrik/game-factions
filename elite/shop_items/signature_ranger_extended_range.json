@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.signature_ranger_extended_range", "kind": "shop_item",
+  "name": "Extended Range",
+  "description": "A 300-gold commander item that grants the Extended Range augment, extending the ranger's Long Season range by 100 units once unlocked.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "elite.augment.signature_ranger.extended_range", "signature_rank": 2, "price": 300.0, "lore": {"flavor": ""} }

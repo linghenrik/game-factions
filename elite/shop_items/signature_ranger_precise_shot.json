@@ -1,0 +1,5 @@
+{ "id": "elite.shop_item.signature_ranger_precise_shot", "kind": "shop_item",
+  "name": "Precise Shot",
+  "description": "A 250-gold commander item that grants the Precise Shot augment, adding 8 base damage to the ranger's Long Season once unlocked.",
+  "channel": "commander", "grant_kind": "augment",
+  "grants": "elite.augment.signature_ranger.precise_shot", "signature_rank": 0, "price": 250.0, "lore": {"flavor": ""} }

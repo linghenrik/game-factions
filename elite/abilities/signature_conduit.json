@@ -1,0 +1,19 @@
+{ "id": "elite.ability.signature_conduit", "kind": "ability",
+  "sfx": {"cast": "elite_ability_cast"},
+  "name": "Fallow Ground",
+  "description": "Fires a bolt up to 480 units that roots its target for 2.5 seconds and heals allies within 260 units of the conduit for 50% of the target's missing health.",
+  "default_key": "R",
+  "cost": {"cooldown": 9.0, "energy": 25.0}, "cast_mobility": "locked", "duration": 0.0,
+  "range": 480.0, "speed": 700.0, "radius": 7.0,
+  "root_dur": 2.5, "heal_radius": 260.0, "heal_share": 0.5,
+  "on_cast": [
+    {"do": "spawn", "archetype": "projectile", "count": 1, "spread_deg": 0.0,
+     "speed": "$speed", "hit_radius": "$radius", "range": "$range", "pierce": false}
+  ],
+  "on_hit": [
+    {"do": "apply_status", "target": "hit", "tag": "root", "dur": "$root_dur"},
+    {"do": "heal", "area": "circle", "at": "caster", "radius": "$heal_radius",
+     "pct_missing_hp_of": "hit", "pct": "$heal_share"}
+  ],
+  "lore": {"flavor": ""}
+}

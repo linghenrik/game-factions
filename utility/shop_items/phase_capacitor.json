@@ -1,0 +1,4 @@
+{ "id": "utility.shop_item.phase_capacitor", "kind": "shop_item",
+  "name": "Phase Capacitor", "description": "Costs 500 and grants an augment that gives the hero and nearby allied minions within 150 units 1 second of invulnerability whenever an active ability is cast.",
+  "channel": "hero", "house_tag": "utility",
+  "grant_kind": "augment", "grants": "utility.augment.phase_capacitor", "price": 500.0, "lore": {"flavor": ""} }

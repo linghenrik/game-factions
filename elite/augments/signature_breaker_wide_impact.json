@@ -1,0 +1,5 @@
+{ "id": "elite.augment.signature_breaker.wide_impact", "kind": "augment",
+  "name": "Wide Impact",
+  "description": "Unlocks at 400 team supply and increases Threshing Floor's radius by 25 units.",
+  "applies_to": "elite.ability.signature_breaker", "deltas": {"radius": 25.0},
+  "unlock": {"team_supply": 400}, "lore": {"flavor": ""} }
