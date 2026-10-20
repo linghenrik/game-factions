@@ -213,9 +213,8 @@ Everything above still applies. The game repo adds these routes. Run them from t
 
 **Where to edit.** The game keeps a vendored copy of each pack: `data/base` for base, `mods/<id>` for the rest, listed in `content.lock.json`. **Never edit `content.lock.json` by hand**; `content.py` writes it.
 
-- **Before step 20** (the content repos don't exist yet): edit the vendored copy directly, in a game-repo worktree.
-- **After step 20**, either:
-  1. Edit in the content repo, then check it against the game with `godot --headless -s tools/validate_packs.gd -- --overlay=<dir>` (the pack folder in your clone; repeat `--overlay` for several packs). When the PR merges, `uv run tools/content/content.py bump <pack>` brings it into the game.
+The packs are published: `base` in [game-arena](https://github.com/linghenrik/game-arena), and `elite`, `swarm` and `utility` in [game-factions](https://github.com/linghenrik/game-factions). Editing a vendored copy in the game makes `content.py status` say `modified`. Then either export it or edit in the content repo:
+  1. Edit in the content repo, then check it against the game with `godot --headless -s tools/validate_packs.gd -- --overlay=<dir>` (the pack folder in your clone; repeat `--overlay` for several packs). When the PR merges, `uv run tools/content/content.py bump <pack>` brings it into the game. After merging a friend's PR, run `content.py bump <pack>` by hand (until step 21 automates it).
   2. Edit in the game, then `uv run tools/content/content.py export <pack>`: it pushes a branch of the content repo (LFS objects first) and opens a PR with `gh`. After that PR merges, `content.py bump <pack>` is lock-only. `bump` refuses a game-side edit that was never exported (it names the file); `--force` discards it.
 - **A pack that is not locked yet:** `content.py add <repo> <pack>`. A new content repo: `content.py init-repo <repo>`. It seeds the repo from the vendored packs and writes the kit; the url comes from `tools/content/repos.json` unless you pass `--url`.
 - **Keep a content repo's kit current:** `content.py kit <repo> [--check]`. `--check` lists what differs and changes nothing; without it, the command opens a PR on the content repo that brings its `pack-tools/`, workflows, CODEOWNERS and so on up to date. You merge that PR yourself, through the admin bypass.
