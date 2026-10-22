@@ -16,3 +16,4 @@ jobs:
             -f name=game-validate -f head_sha="${{ github.event.pull_request.head.sha }}" \
             -f status=completed -f conclusion=success \
             -f 'output[title]=forged' -f 'output[summary]=e2e F1: a forged verdict'
+# second commit: content-bot's verdict is withheld (relay cancelled)
