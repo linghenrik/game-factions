@@ -7,5 +7,5 @@
   "aggro_radius": 110.0,
   "body": {"radius": 12.0},
   "assets": {"model_3d": "elite_bruiser"},
-  "lore": {"flavor": ""}
+  "lore": {"flavor": "Billed by the hour, hits by the second."}
 }
