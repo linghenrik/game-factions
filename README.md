@@ -13,3 +13,5 @@ A content repo for the game: packs of JSON definitions and art, one folder per p
 This repository is public so that anyone can read it, but all rights are reserved: apart from what GitHub's Terms of Service allow (viewing and forking on GitHub), nothing here may be copied or reused. You keep the copyright in what you contribute; a pull request the owner merges grants the owner a licence to use it in the game and the sole right to make physical goods from it. The full terms are in [LICENSE.md](LICENSE.md). Third-party assets keep their own licences, listed in [CREDITS.md](CREDITS.md) and in each pack's `CREDITS.md`.
 
 For now, only collaborators can open issues and pull requests. To take part, ask the owner.
+
+<!-- e2e E3 (step 21): a change outside the packs, so the bump is lock-only. -->
