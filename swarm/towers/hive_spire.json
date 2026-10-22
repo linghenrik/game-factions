@@ -1,10 +1,10 @@
 {
   "id": "swarm.tower.hive_spire", "kind": "tower",
-  "name": "Hive Spire", "description": "A cheap, fast-firing spire that chips at anything nearby but crumbles quickly.",
+  "name": "Hive Spire", "description": "A fast-firing spire that chips at anything nearby but crumbles quickly.",
   "levels": [
-    {"cost": 50.0, "hp": 300.0, "attack_damage": 10.0, "attack_range": 105.0, "attack_cooldown": 0.6},
-    {"cost": 80.0, "hp": 480.0, "attack_damage": 17.0, "attack_range": 120.0, "attack_cooldown": 0.55}
+    {"cost": 65.0, "hp": 300.0, "attack_damage": 10.0, "attack_range": 105.0, "attack_cooldown": 0.6},
+    {"cost": 90.0, "hp": 480.0, "attack_damage": 17.0, "attack_range": 120.0, "attack_cooldown": 0.55}
   ],
-  "assets": {"model_3d": "tower_arrow", "icon": "crosshair"},
+  "assets": {"model_3d": "tower_hive_spire", "model_fallback": "tower_arrow", "icon": "crosshair"},
   "lore": {"flavor": ""}
 }
