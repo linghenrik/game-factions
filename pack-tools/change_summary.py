@@ -20,7 +20,7 @@ import json
 import sys
 from pathlib import Path
 
-PRESENTATION = {"assets", "vfx", "sfx", "lore", "name", "description"}
+PRESENTATION = {"assets", "vfx", "sfx", "voice", "lore", "name", "description"}
 MAP_PRESENTATION = PRESENTATION | {"ground"}
 
 

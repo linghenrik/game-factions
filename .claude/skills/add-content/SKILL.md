@@ -40,7 +40,7 @@ One top-level folder per pack, and the folder name is the pack id.
 | Category | Folders it may have | `dependencies` | Notes |
 |---|---|---|---|
 | `core` | any (only `base`) | `[]` | owner only |
-| `faction` | `abilities`, `augments`, `heroes`, `units`, `shop_items`, `towers` | exactly `["base"]` | no `houses`, `classes`, `maps`, camps or monsters; every minion's `house_tag` is the pack id |
+| `faction` | `abilities`, `augments`, `heroes`, `units`, `shop_items`, `towers`, `sound_themes` | exactly `["base"]` | no `houses`, `classes`, `maps`, camps or monsters; every minion's `house_tag` is the pack id |
 | `map` | `maps` | exactly `["base"]` | |
 | `jungle` | `monsters`, `camps`, `camp_items` | exactly `["base"]` | |
 | `mod` | any | any | the only category that may override another pack's defs (`overrides`); owner only |
@@ -153,7 +153,7 @@ Asset files sit under the pack's `assets/` folder, in a subfolder by type:
 | `assets/models/` | `.glb` | `assets.model_3d`, `model_fallback` | 5 MB, 10,000 triangles |
 | `assets/icons/` | `.svg` | `assets.icon` | 256 KB, 1024 px |
 | `assets/textures/` | `.png` | a map's `ground.texture` | 8 MB, 4096 px |
-| `assets/audio/` | `.ogg`, `.wav` | `sfx` blocks | |
+| `assets/audio/` | `.ogg`, `.wav` | `sfx` and `voice` blocks, the pack theme | |
 
 - **Names.** Every file in a non-core pack starts with `<pack>_`, for example `swarm/assets/models/swarm_tower_silo.glb`. Base files are not prefixed. This keeps two packs from shipping the same name.
 - **Keys.** A def names a file by its bare key: the file name without folder or extension, only `a-z 0-9 _ -`. So `"model_3d": "swarm_tower_silo"` means `assets/models/swarm_tower_silo.glb`. The game looks in your pack first, then in `base`, so a def can use a base icon (`"icon": "crosshair"`) without copying it.
@@ -179,7 +179,7 @@ uv run pack-tools/check_repo.py
 - **What it prints.** One line per problem, `<file>: [rule] message`, with the fix spelled out. The last line is `check_repo: OK (<n> packs)`, or `check_repo: <n> problems` and exit code 1. Fix every problem, commit, and run it again. Paste the `## Change summary` part into the PR.
 - **The single tools** are still there:
   - `uv run pack-tools/lint_pack.py <pack>` lints one pack. It finds `pack_categories.json` by itself. It takes a few seconds and needs no game. It checks the manifest, the folder and kind rules, ids, camp-item placement, minion `house_tag`, asset folders, extensions and name prefix, and files that are Git LFS pointers instead of real binaries. It cannot see missing references (an `abilities` entry naming nothing), lore shape or stats; the real validator does.
-  - `uv run pack-tools/change_summary.py <old> <new>` prints a Markdown summary of what changed between two copies of a pack, one line per def: `added`, `removed` or `changed`. A changed def says `presentation-only` when only assets, vfx, sfx, lore, name or description changed, and otherwise names the gameplay fields that changed (for example `hp`).
+  - `uv run pack-tools/change_summary.py <old> <new>` prints a Markdown summary of what changed between two copies of a pack, one line per def: `added`, `removed` or `changed`. A changed def says `presentation-only` when only assets, vfx, sfx, voice, lore, name or description changed, and otherwise names the gameplay fields that changed (for example `hp`).
 - **On the PR**, the check is **Content checks**, and it runs the same command. Read it, fix what it names and push again. Once the owner has switched it on for your repo, `game-validate` (the real validator) also runs the pack against the game: references, ability programs, stats, lore, asset budgets and short test matches. The lint passing does not mean that check passes.
 
 ## 6. Versions

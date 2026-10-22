@@ -15,8 +15,9 @@ pack's CREDITS.md, in the table under a "## Audio" heading:
     | assets/audio/hit.ogg | CC0-1.0 | https://freesound.org/s/123/ | name | trimmed, mono |
 
 Licence is CC0-1.0, or PDM-1.0 for public-domain recordings. Source is an https
-URL, or "generated: <model> <version>, prompt "...", seed N" for a sound we made
-ourselves, which we release as CC0-1.0. Cells never contain "|".
+URL, "generated: <model> <version>, prompt "...", seed N" for a sound we made
+ourselves, or "recorded: <who, where, how>" for a voice or sound we recorded; both
+we release as CC0-1.0. Cells never contain "|".
 
     uv run audio_credits.py <pack_dir>...      exit 1 and one line per problem
 """
@@ -30,6 +31,7 @@ ALLOWED_LICENCES = ("CC0-1.0", "PDM-1.0")
 AUDIO_EXTS = (".ogg", ".wav")
 HEADER = ["File", "Licence", "Source", "Author", "Edits"]
 GENERATED = "generated: "
+RECORDED = "recorded: "
 
 
 def audio_files(pack_dir: Path) -> list[str]:
@@ -75,8 +77,10 @@ def credit_rows(text: str) -> tuple[list[dict[str, str]], list[str]]:
 
 
 def _has_source(src: str) -> bool:
-    """An https URL or a 'generated: ...' note, with something after the prefix."""
-    return any(src.startswith(p) and src[len(p) :].strip() for p in ("https://", GENERATED))
+    """An https URL, a 'generated: ...' or a 'recorded: ...' note, with something after the prefix."""
+    return any(
+        src.startswith(p) and src[len(p) :].strip() for p in ("https://", GENERATED, RECORDED)
+    )
 
 
 def check_pack(pack_dir: Path) -> list[str]:
@@ -106,9 +110,13 @@ def check_pack(pack_dir: Path) -> list[str]:
             problems.append(f"{where}: licence '{r['Licence']}' is not one of {allowed}")
         src = r["Source"]
         if not _has_source(src):
-            problems.append(f"{where}: source must be an https URL or '{GENERATED}...'")
+            problems.append(
+                f"{where}: source must be an https URL, '{GENERATED}...' or '{RECORDED}...'"
+            )
         if src.startswith(GENERATED) and r["Licence"] != "CC0-1.0":
             problems.append(f"{where}: a generated sound is released as CC0-1.0")
+        if src.startswith(RECORDED) and r["Licence"] != "CC0-1.0":
+            problems.append(f"{where}: a recorded sound is released as CC0-1.0")
         if not r["Author"]:
             problems.append(f"{where}: author is empty")
         if r["File"] not in files:
