@@ -6,5 +6,5 @@
     {"cost": 90.0, "hp": 480.0, "attack_damage": 17.0, "attack_range": 120.0, "attack_cooldown": 0.55}
   ],
   "assets": {"model_3d": "tower_hive_spire", "model_fallback": "tower_arrow", "icon": "crosshair"},
-  "lore": {"flavor": ""}
+  "lore": {"flavor": "Every spire starts as one stubborn larva."}
 }
