@@ -5,7 +5,7 @@
   "abilities": [
     "swarm.ability.basic_breaker_aoe", "swarm.ability.basic_breaker_cone",
     "swarm.ability.basic_breaker_focus", "swarm.ability.signature_breaker",
-    "swarm.ability.overtime", "swarm.ability.does_not_exist"
+    "swarm.ability.overtime"
   ],
   "assets": {"model_3d": "swarm_breaker"},
   "lore": {"title": "", "bio": "", "quote": ""}
