@@ -1,0 +1,18 @@
+# e2e F1 (step 21 PR 3): a PR workflow forges a passing game-validate with GITHUB_TOKEN.
+# Expected: the PR stays blocked, because the rule wants game-validate from content-bot only.
+name: e2e forged check
+on: pull_request
+permissions:
+  checks: write
+jobs:
+  forge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create a game-validate check run that says success
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/${{ github.repository }}/check-runs" \
+            -f name=game-validate -f head_sha="${{ github.event.pull_request.head.sha }}" \
+            -f status=completed -f conclusion=success \
+            -f 'output[title]=forged' -f 'output[summary]=e2e F1: a forged verdict'
