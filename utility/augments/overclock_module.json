@@ -1,6 +1,0 @@
-{ "id": "utility.augment.overclock_module", "kind": "augment",
-  "name": "Overclock Module", "description": "Hastes the hero's move speed by 40% for 2.5 seconds whenever any active ability is cast.",
-  "applies_to": "base.ability.active_skills_group",
-  "add_hooks": {
-    "on_cast": [{"do": "apply_status", "target": "self", "tag": "hasted", "dur": 2.5, "speed_mult": 1.4}]
-  }, "lore": {"flavor": ""} }

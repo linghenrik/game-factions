@@ -1,9 +1,0 @@
-{ "id": "utility.augment.temporal_battery", "kind": "augment",
-  "name": "Temporal Battery", "description": "Shields allies within 180 units with 0.2 armor for 3 seconds whenever an active ability is cast.",
-  "applies_to": "base.ability.active_skills_group",
-  "add_hooks": {
-    "on_cast": [
-      {"do": "apply_status", "area": "circle", "at": "caster", "radius": 180.0, "filter": "ally",
-        "tag": "shielded", "dur": 3.0, "armor_add": 0.2}
-    ]
-  }, "lore": {"flavor": ""} }

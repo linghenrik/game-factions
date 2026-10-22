@@ -1,4 +1,0 @@
-{ "id": "utility.augment.signature_conduit.reinforced_plating", "kind": "augment",
-  "name": "Reinforced Plating", "description": "Adds 0.1 armor to Overclock Field's shield once your team reaches 400 supply.",
-  "applies_to": "utility.ability.signature_conduit", "deltas": {"shield_armor": 0.1},
-  "unlock": {"team_supply": 400}, "lore": {"flavor": ""} }

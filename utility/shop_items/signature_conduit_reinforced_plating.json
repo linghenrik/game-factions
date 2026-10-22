@@ -1,4 +1,0 @@
-{ "id": "utility.shop_item.signature_conduit_reinforced_plating", "kind": "shop_item",
-  "name": "Reinforced Plating", "description": "Costs 300 and, once your team reaches 400 supply, adds 0.1 armor to Overclock Field's shield.",
-  "channel": "commander", "grant_kind": "augment",
-  "grants": "utility.augment.signature_conduit.reinforced_plating", "signature_rank": 1, "price": 300.0, "lore": {"flavor": ""} }

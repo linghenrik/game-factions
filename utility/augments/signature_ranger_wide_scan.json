@@ -1,4 +1,0 @@
-{ "id": "utility.augment.signature_ranger.wide_scan", "kind": "augment",
-  "name": "Wide Scan", "description": "Widens Temporal Lock's cone by 10 degrees once your team reaches 400 supply.",
-  "applies_to": "utility.ability.signature_ranger", "deltas": {"half_angle": 10.0},
-  "unlock": {"team_supply": 400}, "lore": {"flavor": ""} }

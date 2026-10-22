@@ -1,4 +1,0 @@
-{ "id": "utility.shop_item.signature_breaker_impact_zone", "kind": "shop_item",
-  "name": "Impact Zone", "description": "Costs 300 and, once the hero reaches 400 max health, adds 20 units to Breaker's Overcharge Dash damage radius.",
-  "channel": "commander", "grant_kind": "augment",
-  "grants": "utility.augment.signature_breaker.impact_zone", "signature_rank": 2, "price": 300.0, "lore": {"flavor": ""} }

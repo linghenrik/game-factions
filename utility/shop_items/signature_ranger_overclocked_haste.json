@@ -1,4 +1,0 @@
-{ "id": "utility.shop_item.signature_ranger_overclocked_haste", "kind": "shop_item",
-  "name": "Overclocked Haste", "description": "Costs 300 and, once your team controls 1 tower, increases Temporal Lock's self-haste bonus by 15%.",
-  "channel": "commander", "grant_kind": "augment",
-  "grants": "utility.augment.signature_ranger.overclocked_haste", "signature_rank": 1, "price": 300.0, "lore": {"flavor": ""} }

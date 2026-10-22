@@ -1,4 +1,0 @@
-{ "id": "utility.augment.signature_breaker.overcharged_dash", "kind": "augment",
-  "name": "Overcharged Dash", "description": "Adds 10 damage to Overcharge Dash after your team gets 3 kills.",
-  "applies_to": "utility.ability.signature_breaker", "deltas": {"damage": 10.0},
-  "unlock": {"team_kills": 3}, "lore": {"flavor": ""} }

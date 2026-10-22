@@ -1,4 +1,0 @@
-{ "id": "utility.shop_item.signature_breaker_extended_dash", "kind": "shop_item",
-  "name": "Extended Dash", "description": "Costs 300 and, once your team controls 1 tower, adds 60 units to Breaker's Overcharge Dash travel distance.",
-  "channel": "commander", "grant_kind": "augment",
-  "grants": "utility.augment.signature_breaker.extended_dash", "signature_rank": 1, "price": 300.0, "lore": {"flavor": ""} }

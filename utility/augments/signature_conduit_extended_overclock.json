@@ -1,4 +1,0 @@
-{ "id": "utility.augment.signature_conduit.extended_overclock", "kind": "augment",
-  "name": "Extended Overclock", "description": "Extends Overclock Field's buff duration by 1.5 seconds after your team gets 3 kills.",
-  "applies_to": "utility.ability.signature_conduit", "deltas": {"buff_dur": 1.5},
-  "unlock": {"team_kills": 3}, "lore": {"flavor": ""} }

@@ -1,4 +1,0 @@
-{ "id": "utility.augment.signature_ranger.temporal_lock", "kind": "augment",
-  "name": "Prolonged Lock", "description": "Extends Temporal Lock's root duration by 0.7 seconds after your team gets 3 kills.",
-  "applies_to": "utility.ability.signature_ranger", "deltas": {"root_dur": 0.7},
-  "unlock": {"team_kills": 3}, "lore": {"flavor": ""} }

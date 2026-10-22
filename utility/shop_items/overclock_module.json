@@ -1,4 +1,0 @@
-{ "id": "utility.shop_item.overclock_module", "kind": "shop_item",
-  "name": "Overclock Module", "description": "Costs 400 and grants an augment that hastes the hero's move speed by 40% for 2.5 seconds whenever an active ability is cast.",
-  "channel": "hero", "house_tag": "utility",
-  "grant_kind": "augment", "grants": "utility.augment.overclock_module", "price": 400.0, "lore": {"flavor": ""} }

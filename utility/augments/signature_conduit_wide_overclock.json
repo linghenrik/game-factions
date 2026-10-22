@@ -1,4 +1,0 @@
-{ "id": "utility.augment.signature_conduit.wide_overclock", "kind": "augment",
-  "name": "Wide Overclock", "description": "Widens Overclock Field's cone by 10 degrees once the hero reaches 330 max health.",
-  "applies_to": "utility.ability.signature_conduit", "deltas": {"half_angle": 10.0},
-  "unlock": {"hero_max_health": 330.0}, "lore": {"flavor": ""} }
