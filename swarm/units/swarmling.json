@@ -6,5 +6,5 @@
   "aggro_radius": 90.0,
   "body": {"radius": 7.0},
   "assets": {"model_3d": "swarm_swarmling"},
-  "lore": {"flavor": ""}
+  "lore": {"flavor": "Paid in exposure, fights for snacks."}
 }
