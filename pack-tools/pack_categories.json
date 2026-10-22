@@ -27,7 +27,7 @@
   "categories": {
     "core": {"folders": "*", "deps": "none", "overrides": false},
     "faction": {
-      "folders": ["abilities", "augments", "heroes", "units", "shop_items", "towers"],
+      "folders": ["abilities", "augments", "heroes", "units", "shop_items", "towers", "sound_themes"],
       "deps": "base",
       "overrides": false,
       "minion_house_is_pack": true
