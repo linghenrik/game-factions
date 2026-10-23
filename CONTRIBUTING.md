@@ -21,7 +21,7 @@ The repo is public: everyone can read it, but only collaborators can open pull r
 5. If it reports anything, fix it, commit again and repeat step 4.
 6. Push: `git push -u origin HEAD`
 7. Open the pull request on GitHub and fill in the template.
-8. Wait for **Content checks** to pass and for the owner's review.
+8. Wait for **Content checks** and **game-validate** to pass, then read the comment from `linghenrik-content-bot`: it is the game's verdict on your pack. Then wait for the owner's review.
 9. If GitHub says the branch is out of date, press **Update branch**.
 
 ## With an AI agent
