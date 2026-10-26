@@ -28,10 +28,14 @@ GITATTRIBUTES = "* -text\n" + "".join(
     f"*.{ext} filter=lfs diff=lfs merge=lfs -text\n" for ext in LFS_EXTS
 )
 NOT_PACKS = ("pack-tools", "docs")
-SIBLINGS = ("lint_pack.py", "change_summary.py", "audio_credits.py", "pack_categories.json")
-NO_KIT_NOTE = (
-    "the kit is incomplete: skipped the lint, the audio licence check and the change summary"
+SIBLINGS = (
+    "lint_pack.py",
+    "change_summary.py",
+    "audio_credits.py",
+    "art_credits.py",
+    "pack_categories.json",
 )
+NO_KIT_NOTE = "the kit is incomplete: skipped the lint, the audio and art licence checks and the change summary"
 NO_BASE_NOTE = "no origin/main: skipped the change summary (run git fetch)"
 
 
@@ -294,6 +298,20 @@ def _run(root: Path, args: argparse.Namespace) -> int:
         # Every sound must be credited and free to share (audio_credits.py, TODO step 29).
         r = subprocess.run(
             [sys.executable, str(HERE / "audio_credits.py"), *names],
+            cwd=root,
+            capture_output=True,
+            encoding="utf-8",
+            errors="replace",
+            env=dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8"),
+            check=False,
+        )
+        sys.stdout.write(r.stdout)
+        sys.stderr.write(r.stderr)
+        lines = [ln for ln in r.stdout.splitlines() if ln.strip()]
+        problems += 0 if r.returncode == 0 else max(len(lines), 1)
+        # Every model, icon and texture must be credited and allowed (art_credits.py).
+        r = subprocess.run(
+            [sys.executable, str(HERE / "art_credits.py"), *names],
             cwd=root,
             capture_output=True,
             encoding="utf-8",
