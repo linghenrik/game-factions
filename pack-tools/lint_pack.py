@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import struct
 import sys
 from pathlib import Path
 
@@ -31,6 +32,23 @@ _VERSION = re.compile(r"^\d+\.\d+\.\d+$")
 # purpose (this file imports nothing from its siblings); packfiles.py has the same test.
 LFS_HEADER = b"version https://git-lfs.github.com/spec/v1\n"
 LFS_MAX = 1024
+
+# Budgets and clips. Pinned to client/assets_3d.gd (TRI_BUDGET, SIZE_BUDGET, ICON_*,
+# TEXTURE_*, REQUIRED_ANIMS) by test_budget_constants_match_assets_3d; keep them equal.
+MODEL_TRI_BUDGET = 10000
+MODEL_SIZE_BUDGET = 5 * 1024 * 1024  # bytes
+ICON_SIZE_BUDGET = 256 * 1024  # bytes
+ICON_MAX_DIM = 1024  # px, declared width/height/viewBox
+TEXTURE_SIZE_BUDGET = 8 * 1024 * 1024  # bytes
+TEXTURE_MAX_DIM = 4096  # px
+_ANIMS = ("idle", "run", "attack")
+REQUIRED_CLIPS = {"hero": _ANIMS, "minion": _ANIMS, "monster": _ANIMS, "worker": ("idle", "run")}
+# The clip names the renderer plays (client/anim_state.gd, client/entity_view_3d.gd).
+KNOWN_CLIPS = ("idle", "run", "attack", "hit", "death", "stun")
+_GLB_MAGIC = b"glTF"
+_GLB_JSON_CHUNK = 0x4E4F534A  # "JSON", little-endian
+_DRACO = "KHR_draco_mesh_compression"
+_BARE_NAME = re.compile(r"^[A-Za-z0-9_.\-]+$")
 
 
 def _item(file: str, rule: str, message: str) -> dict:
@@ -125,7 +143,11 @@ def _allowed(rule: dict, folder: str) -> bool:
     return folders == "*" or folder in folders
 
 
-def _defs(pack_dir: Path, cats: dict, manifest: dict | None, items: list[dict]) -> None:
+def _defs(
+    pack_dir: Path, cats: dict, manifest: dict | None, items: list[dict]
+) -> list[tuple[str, list[str]]]:
+    """Lint the defs; return (kind, model keys) for every def that names a model."""
+    uses: list[tuple[str, list[str]]] = []
     cat = manifest.get("category") if manifest else None
     rule = cats["categories"].get(cat) if isinstance(cat, str) else None
     pack_id = manifest.get("id") if manifest else pack_dir.name
@@ -162,6 +184,10 @@ def _defs(pack_dir: Path, cats: dict, manifest: dict | None, items: list[dict]) 
             items.append(
                 _item(rel, "def", f"a {kind} def does not belong in {folder}/ (it holds {want})")
             )
+        art = d.get("assets")
+        if isinstance(art, dict) and isinstance(kind, str):
+            keys = [art.get("model_3d"), art.get("model_fallback")]
+            uses.append((kind, [k for k in keys if isinstance(k, str) and _BARE_NAME.match(k)]))
         did = d.get("id")
         if not isinstance(did, str) or not did.startswith(f"{pack_id}."):
             items.append(_item(rel, "def", f"id must start with '{pack_id}.'"))
@@ -187,6 +213,7 @@ def _defs(pack_dir: Path, cats: dict, manifest: dict | None, items: list[dict]) 
             items.append(
                 _item(rel, "def", f"a {cat} minion's house_tag must be its pack id '{pack_id}'")
             )
+    return uses
 
 
 def _assets(pack_dir: Path, cats: dict, manifest: dict | None, items: list[dict]) -> None:
@@ -236,12 +263,254 @@ def _lfs_pointers(pack_dir: Path, items: list[dict]) -> None:
             )
 
 
+def _lfs_size(data: bytes) -> int | None:
+    """The byte size a Git LFS pointer's `size <n>` line declares, or None if it isn't a pointer."""
+    if len(data) >= LFS_MAX or not data.startswith(LFS_HEADER):
+        return None
+    m = re.search(rb"^size (\d+)$", data, re.MULTILINE)
+    return int(m.group(1)) if m else 0
+
+
+def glb_info(data: bytes) -> dict | str:
+    """Triangles, animation clip names and extensionsRequired of a binary glTF 2.0 file.
+
+    Returns a message instead when the bytes are not one. Reads only the JSON chunk: an
+    accessor's `count` is all the triangle count needs, so no buffer is decoded.
+    """
+    if len(data) < 20:
+        return "too short to be a .glb"
+    magic, version, total = struct.unpack_from("<4sII", data, 0)
+    if magic != _GLB_MAGIC:
+        return "does not start with the 'glTF' magic bytes"
+    if version != 2:
+        return f"is glTF version {version}, not 2"
+    if total > len(data):
+        return f"is truncated (header says {total} bytes, file has {len(data)})"
+    length, ctype = struct.unpack_from("<II", data, 12)
+    if ctype != _GLB_JSON_CHUNK:
+        return "has no JSON chunk first"
+    if 20 + length > len(data):
+        return "has a JSON chunk longer than the file"
+    try:
+        gltf = json.loads(data[20 : 20 + length].decode("utf-8"))
+    except (UnicodeDecodeError, ValueError) as e:
+        return f"has a JSON chunk that does not parse: {e}"
+    if not isinstance(gltf, dict):
+        return "has a JSON chunk that is not an object"
+    try:
+        tris = _gltf_tris(gltf)
+        clips = [
+            str(a.get("name", "")) if isinstance(a, dict) else ""
+            for a in gltf.get("animations", [])
+        ]
+        required = [str(e) for e in gltf.get("extensionsRequired", [])]
+    except (TypeError, ValueError, KeyError, IndexError, AttributeError):
+        return "has glTF JSON with a malformed mesh, accessor, node or animation list"
+    return {"tris": tris, "clips": clips, "required": required}
+
+
+def _gltf_tris(gltf: dict) -> int:
+    """Triangles summed per node that has a mesh, as Godot sums per MeshInstance3D."""
+    accessors = gltf.get("accessors", [])
+    per_mesh = []
+    for mesh in gltf.get("meshes", []):
+        n = 0
+        for prim in mesh.get("primitives", []):
+            mode = prim.get("mode", 4)
+            if "indices" in prim:
+                count = int(accessors[prim["indices"]]["count"])
+            else:
+                count = int(accessors[prim["attributes"]["POSITION"]]["count"])
+            if mode == 4:
+                n += count // 3
+            elif mode in (5, 6):
+                n += max(count - 2, 0)
+        per_mesh.append(n)
+    return sum(per_mesh[node["mesh"]] for node in gltf.get("nodes", []) if "mesh" in node)
+
+
+def _to_float(text: str) -> float:
+    """Godot's String.to_float: the number the text starts with, else 0."""
+    m = re.match(r"\s*([+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?)", text)
+    return float(m.group(1)) if m else 0.0
+
+
+def svg_declared_dim(text: str) -> float:
+    """Largest of the root <svg> tag's width/height and viewBox extent (0 if none).
+
+    Mirrors Assets3D._svg_declared_dim (client/assets_3d.gd), quirks included: `\\b` also
+    matches inside `stroke-width`.
+    """
+    start = text.find("<svg")
+    if start < 0:
+        return 0.0
+    end = text.find(">", start)
+    tag = text[start:] if end < 0 else text[start:end]
+    dim = 0.0
+    for m in re.finditer(r"\b(?:width|height)\s*=\s*[\"']\s*([0-9.]+)", tag):
+        dim = max(dim, _to_float(m.group(1)))
+    vb = re.search(r"\bviewBox\s*=\s*[\"']([^\"']*)", tag)
+    if vb is not None:
+        parts = [p for p in vb.group(1).replace(",", " ").split(" ") if p]
+        if len(parts) == 4:
+            dim = max(dim, _to_float(parts[2]), _to_float(parts[3]))
+    return dim
+
+
+def _png_dim(head: bytes) -> int:
+    """The larger of the IHDR width and height (big-endian u32 at byte 16); 0 if too short."""
+    if len(head) < 24:
+        return 0
+    return max(struct.unpack_from(">II", head, 16))
+
+
+def _size_item(rel: str, size: int, budget: int, pointer: bool) -> dict:
+    where = "its LFS pointer says" if pointer else "is"
+    return _item(
+        rel,
+        "budget",
+        f"{where} {size:,} bytes, over the {budget:,}-byte budget: shrink or compress the file",
+    )
+
+
+def _budgets(
+    pack_dir: Path,
+    manifest: dict | None,
+    items: list[dict],
+    allow_lfs_pointers: bool,
+    uses: list[tuple[str, list[str]]] | None = None,
+) -> None:
+    """Size, triangle, pixel and clip checks on the pack's own models, icons and textures.
+
+    `uses` is what _defs collected: (kind, model keys) per def. Only keys whose file is in
+    this pack are checked; a key that names a model in another pack is skipped.
+    """
+    assets = pack_dir / "assets"
+    if not assets.is_dir():
+        return
+    need: dict[str, set[str]] = {}  # model key -> clips its kinds need
+    kinds: dict[str, set[str]] = {}
+    for kind, keys in uses or []:
+        for key in keys if kind in REQUIRED_CLIPS else []:
+            need.setdefault(key, set()).update(REQUIRED_CLIPS[kind])
+            kinds.setdefault(key, set()).add(kind)
+    if isinstance(manifest, dict) and manifest.get("category") == "core":
+        need.setdefault("worker", set()).update(REQUIRED_CLIPS["worker"])
+        kinds.setdefault("worker", set()).add("worker")
+    for path in sorted(assets.rglob("*")):
+        rel = path.relative_to(pack_dir).as_posix()
+        parts = rel.split("/")
+        if not path.is_file() or any(p.startswith(".") for p in parts) or len(parts) != 3:
+            continue
+        ext = parts[2].rsplit(".", 1)[-1] if "." in parts[2] else ""
+        folder = parts[1]
+        if (folder, ext) not in (("models", "glb"), ("icons", "svg"), ("textures", "png")):
+            continue
+        try:
+            data = path.read_bytes()
+        except OSError:
+            continue
+        pointer = _lfs_size(data)
+        if pointer is not None:
+            if allow_lfs_pointers:  # the real file isn't here: only its declared size is known
+                budget = {"models": MODEL_SIZE_BUDGET, "icons": ICON_SIZE_BUDGET}.get(
+                    folder, TEXTURE_SIZE_BUDGET
+                )
+                if pointer > budget:
+                    items.append(_size_item(rel, pointer, budget, True))
+            continue  # not allowed: _lfs_pointers already reports it
+        if folder == "models":
+            _check_model(rel, data, parts[2][: -len(".glb")], need, kinds, items)
+        elif folder == "icons":
+            _check_pixels(rel, data, ICON_SIZE_BUDGET, ICON_MAX_DIM, items)
+        else:
+            _check_pixels(rel, data, TEXTURE_SIZE_BUDGET, TEXTURE_MAX_DIM, items)
+
+
+def _check_pixels(rel: str, data: bytes, size_budget: int, max_dim: int, items: list[dict]) -> None:
+    if len(data) > size_budget:
+        items.append(_size_item(rel, len(data), size_budget, False))
+        return
+    if rel.endswith(".svg"):
+        dim = svg_declared_dim(data.decode("utf-8", errors="replace"))
+    else:
+        dim = _png_dim(data[:24])
+    if dim > max_dim:
+        items.append(
+            _item(
+                rel,
+                "budget",
+                f"declares {int(dim)} px, over the {max_dim} px budget: "
+                f"resize it to {max_dim} px or less",
+            )
+        )
+
+
+def _check_model(
+    rel: str,
+    data: bytes,
+    key: str,
+    need: dict[str, set[str]],
+    kinds: dict[str, set[str]],
+    items: list[dict],
+) -> None:
+    if len(data) > MODEL_SIZE_BUDGET:  # the game refuses to load it, so nothing else to check
+        items.append(_size_item(rel, len(data), MODEL_SIZE_BUDGET, False))
+        return
+    info = glb_info(data)
+    if isinstance(info, str):
+        items.append(_item(rel, "model", f"is not a valid binary glTF 2.0 file: it {info}"))
+        return
+    if _DRACO in info["required"]:
+        items.append(
+            _item(
+                rel,
+                "model",
+                "Godot can't load Draco-compressed models: export without mesh compression",
+            )
+        )
+    if info["tris"] > MODEL_TRI_BUDGET:
+        items.append(
+            _item(
+                rel,
+                "budget",
+                f"{info['tris']:,} triangles, over the {MODEL_TRI_BUDGET:,} budget: "
+                "decimate it (Blender: Decimate modifier)",
+            )
+        )
+    clips = info["clips"]
+    unknown = [c for c in clips if c not in KNOWN_CLIPS]
+    if unknown:
+        names = ", ".join(f"'{c}'" for c in unknown)
+        items.append(
+            _item(
+                rel,
+                "clips",
+                f"clip {names} is not one the game plays ({', '.join(KNOWN_CLIPS)}): "
+                "rename the clips",
+            )
+        )
+    missing = [c for c in KNOWN_CLIPS if c in need.get(key, ()) and c not in clips]
+    if missing:
+        names = " and ".join(f"'{c}'" for c in missing)
+        who = "/".join(sorted(kinds[key]))
+        items.append(
+            _item(
+                rel,
+                "clips",
+                f"has no {names} clip, which a {who} model needs: add "
+                f"{'it' if len(missing) == 1 else 'them'} (needs {', '.join(sorted(need[key]))})",
+            )
+        )
+
+
 def lint(pack_dir: Path, cats: dict, allow_lfs_pointers: bool = False) -> list[dict]:
     pack_dir = Path(pack_dir)
     items: list[dict] = []
     manifest = _manifest(pack_dir, cats, items)
-    _defs(pack_dir, cats, manifest, items)
+    uses = _defs(pack_dir, cats, manifest, items)
     _assets(pack_dir, cats, manifest, items)
+    _budgets(pack_dir, manifest, items, allow_lfs_pointers, uses)
     if not allow_lfs_pointers:
         _lfs_pointers(pack_dir, items)
     return items
