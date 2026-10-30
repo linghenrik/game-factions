@@ -10,7 +10,7 @@ Third-party material, such as CC0 sounds, keeps its own licence. It is listed in
 
 ## 2. Your contribution stays yours until it is merged
 
-You keep the copyright in anything you contribute. Opening a pull request, and a pull request that is closed without being merged, gives the owner no rights beyond reviewing and testing it for that pull request.
+You keep the copyright in anything you contribute. Opening a pull request, and a pull request that is closed without being merged, gives the owner no rights beyond reviewing and testing it for that pull request. Pushing a branch to this repository, or opening a pull request, also lets the owner and the game show it to players who have chosen to see unreviewed content (a "Horadric"), for testing, until the branch is deleted or you ask for removal.
 
 ## 3. What a merged pull request grants
 
@@ -32,15 +32,28 @@ What already exists may keep it: builds of the game released or shared before yo
 
 ## 5. What you confirm
 
-By opening a pull request, you confirm that:
+By pushing a branch to this repository or opening a pull request, you confirm that:
 
 - you made the contribution yourself, or have the right to contribute it on these terms;
-- any third-party material in it is under a licence this repository accepts (sounds must be CC0-1.0 or public domain), and is listed in the pack's `CREDITS.md`.
+- any third-party material in it is under a licence this repository accepts (sounds must be CC0-1.0 or public domain), and is listed in the pack's `CREDITS.md`;
+- it follows the content rules in section 6.
 
-## 6. Credit and changes
+## 6. Content rules
+
+Contributions must not contain:
+
+- sexual content or nudity;
+- sexual or suggestive content involving anyone who is, or looks like, a minor, in any form. This may be reported to the authorities;
+- hate or harassment aimed at real people or groups;
+- real people's faces, names or likenesses without their permission;
+- gore beyond the game's own level of violence.
+
+The owner may remove any contribution or branch, and may block anyone from contributing, at any time and without notice, whether or not a rule was broken. Removal under this section does not need a request under section 4.
+
+## 7. Credit and changes
 
 The owner credits contributors where practical, for example in the game's credits or the wiki. You agree that your contribution may be changed, shortened or combined with other work to fit the game.
 
-## 7. Law
+## 8. Law
 
 These terms are governed by the law of Estonia.

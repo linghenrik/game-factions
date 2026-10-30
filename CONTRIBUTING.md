@@ -36,6 +36,8 @@ Claude Code finds the `add-content` skill (`.claude/skills/add-content/`) by its
 - Binary files (`.glb`, `.png`, `.ogg`, `.wav`) go through Git LFS. If you committed one without LFS, fix it in a new commit; no history rewrite is needed.
 - `pack-tools/`, `.github/`, `.claude/`, `.gitattributes`, `.gitignore`, `CREDITS.md`, `AGENTS.md` and `CLAUDE.md` are the owner's. The owner updates them from the game repo.
 
+**Content rules.** Everything you contribute must follow section 6 of [LICENSE.md](LICENSE.md). Players who have chosen to see unreviewed content can play a branch as soon as you push it, before anyone has reviewed it. The owner may remove any branch.
+
 ## Getting help
 
 Ask the owner.
