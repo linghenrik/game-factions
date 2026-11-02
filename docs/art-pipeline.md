@@ -240,3 +240,19 @@ How the pilot's heroes were made, step by step. Every step is in the record (doc
 - **finish** (finish-utility_conduit-001): Blender 5.2.3 LTS, local, 2026-10-29, $0.00
 
 Pilot total: $23.85, bible and key art included.
+
+## 8. The Tripo pipeline
+
+The stage 1 models (the Clayling, the watchtower and the villager) are made with `tools/art` and the Tripo API. Each step is a command (`uv run --project tools/art tools/art/art.py <command>`, run from the repo root) and writes one entry per Tripo task to the record, so a model's whole history, credits included, is on file.
+
+1. **`turnaround <model>`** makes four-view turnaround images with Nano Banana 2.1 (Gemini), and you keep one with `page` and `pick`.
+2. **`generate <model>`** sends the kept turnaround to Tripo and downloads the textured master model.
+3. **`rig-tripo <model>`** rigs the master and retargets the five clips (`idle`, `run`, `attack`, `hit`, `death`) in Tripo, then names the actions in Blender.
+4. **`variant`** and **`retexture`** make a good and a bad look of the master. These stay in your work folder and never go into a pack.
+5. **`copy <model> --route blender|tripo`** makes the game's copy: fewer triangles, a `_team` material for the team colour, the game's clip names, a textures size the game accepts. It checks the copy against the game's limits.
+6. **`review <model>`** writes a page with the models in 3D, the bill and the copy to keep.
+7. **`ship <model>`** copies the kept copy into the pack, replaces its row in the pack's `CREDITS.md` and, for the villager, drops the old `model_fallback`. It refuses a copy that failed its check and any good or bad look. Then run the import stubs, `validate_packs.gd` and `content.py export`, as `ship` prints.
+
+**Your own key and your own credits.** A contributor uses their own Tripo API key (`TRIPO_API_KEY`, only in the environment, never in a file) and pays for their own credits. Nothing in the repo spends the owner's money for you. Tripo tasks are paid from the credits you topped up, and the Gemini images from your own Gemini key.
+
+**Where the bill comes from.** Every Tripo task is a record entry with its credits; `art.py bill` adds them up per model and step, shows what they are worth in dollars (`usd_per_credit` in `tools/art/prices.json`) and the cash spent against the cap. The credit rows `ship` writes name each tool, version, plan and date, and the Source cell chains back to the turnaround prompt and seed.
