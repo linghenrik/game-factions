@@ -5,7 +5,7 @@
   "on_tick": [
     {"if": {"ask": "entities_in_radius", "radius": "$scan_radius", "filter": "ally", "gt": "$threshold"},
      "then": [
-       {"do": "apply_status", "target": "self", "tag": "overtime_buff", "dur": "$buff_dur", "dmg_mult": "$dmg_buff"}
+       {"do": "apply_status", "target": "self", "tag": "overtime_buff", "look": "glow", "dur": "$buff_dur", "dmg_mult": "$dmg_buff"}
      ]},
     {"wait": "$buff_dur"}
   ],
