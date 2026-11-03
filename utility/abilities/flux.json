@@ -3,13 +3,13 @@
   "cost": {}, "cast_mobility": "mobile", "duration": 1000000.0,
   "recharge_delay": 4.0, "shield_armor": 0.15, "recheck_interval": 0.5,
   "on_damaged": [
-    {"do": "apply_status", "target": "self", "tag": "flux_recharging", "dur": "$recharge_delay"}
+    {"do": "apply_status", "target": "self", "tag": "flux_recharging", "look": "none", "dur": "$recharge_delay"}
   ],
   "on_tick": [
     {"if": {"ask": "has_status", "target": "self", "tag": "flux_recharging"},
      "then": [],
      "else": [
-       {"do": "apply_status", "target": "self", "tag": "flux_shield", "dur": "$recheck_interval", "armor_add": "$shield_armor"}
+       {"do": "apply_status", "target": "self", "tag": "flux_shield", "look": "shield", "dur": "$recheck_interval", "armor_add": "$shield_armor"}
      ]},
     {"wait": "$recheck_interval"}
   ],

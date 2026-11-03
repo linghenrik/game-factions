@@ -8,7 +8,7 @@
   "on_cast": [
     {"do": "apply_status", "area": "cone", "range": "$range", "half_angle": "$half_angle",
      "tag": "root", "dur": "$root_dur"},
-    {"do": "apply_status", "target": "self", "tag": "temporal_haste", "dur": "$haste_dur", "speed_mult": "$haste_mult"}
+    {"do": "apply_status", "target": "self", "tag": "temporal_haste", "look": "haste", "dur": "$haste_dur", "speed_mult": "$haste_mult"}
   ],
   "lore": {"flavor": ""}
 }
