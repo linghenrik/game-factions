@@ -11,7 +11,7 @@
   ],
   "on_hit": [
     {"do": "deal_damage", "target": "hit", "amount": "$damage"},
-    {"do": "apply_status", "target": "hit", "tag": "layoff_shred", "dur": "$shred_dur", "armor_add": "$shred_amount"}
+    {"do": "apply_status", "target": "hit", "tag": "layoff_shred", "look": "glow", "dur": "$shred_dur", "armor_add": "$shred_amount"}
   ],
   "lore": {"flavor": ""}
 }
