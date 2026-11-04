@@ -150,7 +150,7 @@ Asset files sit under the pack's `assets/` folder, in a subfolder by type. How t
 
 | Subfolder | Extensions | Used by | Limits |
 |---|---|---|---|
-| `assets/models/` | `.glb` | `assets.model_3d`, `model_fallback` | 5 MB, 10,000 triangles |
+| `assets/models/` | `.glb` | `assets.model_3d`, `model_fallback`, a `vfx` slot's `model` | 5 MB, 10,000 triangles |
 | `assets/icons/` | `.svg` | `assets.icon` | 256 KB, 1024 px |
 | `assets/textures/` | `.png` | a map's `ground.texture` | 8 MB, 4096 px |
 | `assets/audio/` | `.ogg`, `.wav` | `sfx` and `voice` blocks, the pack theme | |
@@ -163,6 +163,40 @@ Asset files sit under the pack's `assets/` folder, in a subfolder by type. How t
 - **Sounds must be free to share.** Every file under `assets/audio/` is CC0-1.0 or public domain (PDM-1.0), and each needs a row in the pack's `CREDITS.md` under a `## Audio` heading, in a table with the header `| File | Licence | Source | Author | Edits |`. Source is an https URL, or `generated: <model> <version>, prompt "...", seed N` for a sound you made yourself. `check_repo` (section 5) refuses an uncredited sound or any other licence.
 - **Art must be credited and free to share.** Every model, icon and texture needs a row in the pack's `CREDITS.md` under a `## Art` heading, in a table with the same header `| File | Licence | Source | Author | Edits |`. Source is an https URL (licence `CC0-1.0`, `PDM-1.0`, `CC-BY-3.0` or `CC-BY-4.0`), `generated: <tool> <version> [<plan>] <YYYY-MM-DD>; <prompt, seed, inputs>` (a paid plan or `local`, never a free tier) or `made: <who, how>`. The last two are licensed `LicenseRef-Contributor`, and Author is the person who made it. No row (Source or Edits) may name a tool the art guide bans. `check_repo` (section 5) refuses an uncredited file or any other licence.
 - **No JSON under `assets/`**, no other subfolders, no other extensions.
+
+### Skill visuals (the `vfx` block)
+
+A unit, tower, monster or ability may carry a `vfx` block that changes how its skills and attacks look. A pack never ships effect files (scenes, shaders, particles), only `.glb` models. `game-validate` checks the block: any other slot or field, a bad model key or a number out of range fails.
+
+```json
+"vfx": {"cone": {"model": "swarm_claw_cone", "tint": [0.6, 0.2, 1.0]}, "tracer": {"model": "swarm_spit", "intensity": 1.2}}
+```
+
+| Slot | What it shows | Put it on | `archetype` | Model clips |
+|---|---|---|---|---|
+| `muzzle` | basic-attack flash (built-in particles only, no `model`) | the unit, tower or ability | `flash` | none |
+| `impact` | projectile hit (no `model`) | the ability | `burst` | none |
+| `death` | death (no `model`) | the unit, tower or monster | `dissolve`, `burst` | none |
+| `tracer` | a projectile in flight (the bolt) | the ability that fires it | `beam` | `fly` (loops) |
+| `cone`, `circle` | an ability's ground mark | the ability | `mark` | none |
+| `dart` | a ranged basic attack's dart | the attacking unit or tower | `dart` | none |
+| `dash` | a dash's trail | the dashing hero | `trail` | none |
+| `fuse` | a mine's blast-radius ring | the mine unit | `ring` | none |
+| `dome` | a zone's dome | the ability that makes the zone: **reserved**, checked but not drawn yet (only the ruleset's `dome` default draws today) | `shell` | `open`, `loop`, `close` |
+
+- **Fields**, all optional: `archetype` (the built-in shape, drawn when there is no model or it fails to load), `model` (a bare model key, like `assets.model_3d`), `tint` (three numbers 0 to 1; a def's own block only, never the ruleset defaults), `intensity` (0.25 to 4) and, on `muzzle`, `tracer`, `impact` and `death` only, `scale` (0.25 to 4). `scale` is for a def's own block, never the ruleset defaults. On `tracer` it sizes only the built-in bolt's core, so a `tracer` with a `model` may not have a `scale`.
+- **The game sizes every model from the skill's real numbers**, never from the model's own size: a mark or dome to its radius, a cone to its range, a bolt's width to its hit radius. Author marks and rings flat on the ground and domes standing on it, centred on the origin, and bolts, darts and trails pointing along +z. The rules, one per slot:
+  - **Bolt:** the engine measures the model's widest point (its largest |x| or |y|) and scales it so that is the hit radius. A bolt model's body should be as wide as its hit area. A model that reaches further along z than 3.3 half widths (the built-in bolt's trail is 3 hit radii, plus 10%) is refused and the built-in bolt is drawn.
+  - **Dash trail:** the model's extent along z (smallest z to largest) becomes the path's length, laid from the dash's start point, so nothing behind z = 0 is stretched twice. Its half width (largest |x|) becomes the built-in trail's for that unit; x and y scale together.
+  - **Status look:** the model's ground reach (its largest xz distance from the origin) is scaled to the reach of that look's built-in overlay, in body units, so a look's model is always the unit's size, however big it was authored.
+  - Circle, fuse and dome: the reach becomes the radius. Cone: below. Dart: sized like the built-in dart.
+  - **A clip may not move the model outside its rest footprint by more than 10%.** The game does not check this yet; keep to it.
+- **A cone model is one fan of 45° each side of +z, apex at the origin.** The game bends it to the cone's real angle (each vertex's angle from +z, measured around the up axis on the ground, is multiplied by the real half angle / 45; its distance from the apex and its height stay) and stretches it to the range, so one model fits every cone. Keep the model inside its fan plus 10% (within 49.5° of +z): anything outside it is bent by the same factor and reaches further out on wide cones. Give its arc enough segments to stay round when bent wider.
+- **Author effect models white or light grey; the engine colours them by side (or the slot's `tint`) and fades them.** Each surface's albedo is multiplied by the colour the built-in shape of that slot has: your side's and the enemy's marks, bolts, darts, trails and rings in two different hues relative to the viewer, heals green, a status look in its look colour, a dome in its team's colour; the slot's `tint`, when set, pulls that colour halfway toward itself (it never replaces it, so friend and foe stay apart; a dome has no `tint`). A texture is multiplied by that colour too. The engine fades a model the way it fades the built-in (a mark, trail or dome going out), so don't author your own fade. `intensity` brightens bolt and dart models as it does the built-in; the other slots ignore it for models.
+- **A model may hold only its slot's clips**, and a missing clip is fine. The lint rejects any other clip name.
+- **Size limits** (the lint and the game both enforce them; over the limit, the game draws the built-in shape): `tracer`, `dart` and `dash` models at most 500 triangles and 64 KiB; `cone`, `circle`, `fuse` and status-look models at most 1,000 triangles and 128 KiB; `dome` models at most 2,000 triangles and 256 KiB. The game checks every model a `vfx` slot or ruleset look names when a match is set up, and `game-validate` fails on a missing, broken or over-budget one; the lint checks the ones in the pack's own `assets/models/`. An effect model may have no lights (`KHR_lights_punctual`), no cameras and no `KHR_materials_emissive_strength`: the lint rejects them, and the game strips lights and switches glow off, so the brightness cap holds.
+- **Game-wide defaults** live in the ruleset's `vfx_defaults` (base pack, owner only): `{"slots": {<slot>: {...}}, "looks": {<look>: {"model": key}}}`. A def's own slot wins field by field, then the default, then the game's built-in shape. So a def that sets only `tint` keeps the default model, tinted. A ruleset default may not set `tint` (it would pull every side's colour alike): that is a load error.
+- **Status looks** (`apply_status`'s `look`: `root`, `slow`, `shield`, `haste`, `chill`, `glow`, or `none` for a status that shows nothing) get their models only from `vfx_defaults.looks`, with a `grow` clip that plays once. A pack cannot add a look name.
 
 ## 5. Check
 

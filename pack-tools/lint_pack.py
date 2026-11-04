@@ -45,6 +45,37 @@ _ANIMS = ("idle", "run", "attack")
 REQUIRED_CLIPS = {"hero": _ANIMS, "minion": _ANIMS, "monster": _ANIMS, "worker": ("idle", "run")}
 # The clip names the renderer plays (client/anim_state.gd, client/entity_view_3d.gd).
 KNOWN_CLIPS = ("idle", "run", "attack", "hit", "death", "stun")
+# Skill-visual (vfx) models, step 45. Pinned to client/assets_3d.gd (EFFECT_*) and to
+# sim/effects/vfx_check.gd (MODEL_CLIPS, LOOK_CLIPS, STATUS_LOOKS) by tests; keep them equal.
+# EFFECT_BUDGETS: group -> (triangles, bytes). `dash` has no budget of its own: it takes
+# the bolt/dart one. A "look" is a status look named by the ruleset's vfx_defaults.looks.
+EFFECT_BUDGETS = {
+    "bolt": (500, 64 * 1024),
+    "mark": (1000, 128 * 1024),
+    "dome": (2000, 256 * 1024),
+}
+EFFECT_GROUP = {
+    "tracer": "bolt",
+    "dart": "bolt",
+    "dash": "bolt",
+    "cone": "mark",
+    "circle": "mark",
+    "fuse": "mark",
+    "look": "mark",
+    "dome": "dome",
+}
+# The slots that may name a model, and the only clips that model may hold.
+VFX_MODEL_CLIPS = {
+    "tracer": ("fly",),
+    "cone": (),
+    "circle": (),
+    "dart": (),
+    "dash": (),
+    "fuse": (),
+    "dome": ("open", "loop", "close"),
+}
+LOOK_CLIPS = ("grow",)
+STATUS_LOOKS = ("root", "slow", "shield", "haste", "chill", "glow", "none")
 _GLB_MAGIC = b"glTF"
 _GLB_JSON_CHUNK = 0x4E4F534A  # "JSON", little-endian
 _DRACO = "KHR_draco_mesh_compression"
@@ -143,10 +174,43 @@ def _allowed(rule: dict, folder: str) -> bool:
     return folders == "*" or folder in folders
 
 
+def vfx_models(d: dict) -> list[tuple[str, str]]:
+    """(slot, model key) for every model a def's `vfx` block or ruleset `vfx_defaults` names.
+
+    A status look is slot "look". Malformed blocks and unknown slots are skipped: the game's
+    validator (sim/effects/vfx_check.gd) reports those.
+    """
+    out: list[tuple[str, str]] = []
+
+    def slots(block) -> None:
+        for slot, v in block.items() if isinstance(block, dict) else []:
+            key = v.get("model") if isinstance(v, dict) else None
+            if slot in VFX_MODEL_CLIPS and isinstance(key, str) and _BARE_NAME.match(key):
+                out.append((slot, key))
+
+    slots(d.get("vfx"))
+    defaults = d.get("vfx_defaults")
+    if isinstance(defaults, dict):
+        slots(defaults.get("slots"))
+        looks = defaults.get("looks")
+        for look, v in looks.items() if isinstance(looks, dict) else []:
+            key = v.get("model") if isinstance(v, dict) else None
+            if look in STATUS_LOOKS and isinstance(key, str) and _BARE_NAME.match(key):
+                out.append(("look", key))
+    return out
+
+
 def _defs(
-    pack_dir: Path, cats: dict, manifest: dict | None, items: list[dict]
+    pack_dir: Path,
+    cats: dict,
+    manifest: dict | None,
+    items: list[dict],
+    effects: list[tuple[str, str, str]] | None = None,
 ) -> list[tuple[str, list[str]]]:
-    """Lint the defs; return (kind, model keys) for every def that names a model."""
+    """Lint the defs; return (kind, model keys) for every def that names a model.
+
+    `effects` collects (def file, slot, model key) for every skill-visual model named.
+    """
     uses: list[tuple[str, list[str]]] = []
     cat = manifest.get("category") if manifest else None
     rule = cats["categories"].get(cat) if isinstance(cat, str) else None
@@ -188,6 +252,8 @@ def _defs(
         if isinstance(art, dict) and isinstance(kind, str):
             keys = [art.get("model_3d"), art.get("model_fallback")]
             uses.append((kind, [k for k in keys if isinstance(k, str) and _BARE_NAME.match(k)]))
+        if effects is not None:
+            effects.extend((rel, slot, key) for slot, key in vfx_models(d))
         did = d.get("id")
         if not isinstance(did, str) or not did.startswith(f"{pack_id}."):
             items.append(_item(rel, "def", f"id must start with '{pack_id}.'"))
@@ -272,7 +338,8 @@ def _lfs_size(data: bytes) -> int | None:
 
 
 def glb_info(data: bytes) -> dict | str:
-    """Triangles, animation clip names and extensionsRequired of a binary glTF 2.0 file.
+    """Triangles, animation clip names, extensionsRequired, every extension used and whether
+    there are cameras, of a binary glTF 2.0 file.
 
     Returns a message instead when the bytes are not one. Reads only the JSON chunk: an
     accessor's `count` is all the triangle count needs, so no buffer is decoded.
@@ -304,9 +371,12 @@ def glb_info(data: bytes) -> dict | str:
             for a in gltf.get("animations", [])
         ]
         required = [str(e) for e in gltf.get("extensionsRequired", [])]
+        used = {str(e) for e in gltf.get("extensionsUsed", [])} | set(required)
+        used |= {str(e) for e in (gltf.get("extensions") or {})}
+        cameras = bool(gltf.get("cameras")) or any("camera" in n for n in gltf.get("nodes", []))
     except (TypeError, ValueError, KeyError, IndexError, AttributeError):
         return "has glTF JSON with a malformed mesh, accessor, node or animation list"
-    return {"tris": tris, "clips": clips, "required": required}
+    return {"tris": tris, "clips": clips, "required": required, "used": used, "cameras": cameras}
 
 
 def _gltf_tris(gltf: dict) -> int:
@@ -379,6 +449,7 @@ def _budgets(
     items: list[dict],
     allow_lfs_pointers: bool,
     uses: list[tuple[str, list[str]]] | None = None,
+    effect_keys: set[str] | None = None,
 ) -> None:
     """Size, triangle, pixel and clip checks on the pack's own models, icons and textures.
 
@@ -420,7 +491,9 @@ def _budgets(
                     items.append(_size_item(rel, pointer, budget, True))
             continue  # not allowed: _lfs_pointers already reports it
         if folder == "models":
-            _check_model(rel, data, parts[2][: -len(".glb")], need, kinds, items)
+            _check_model(
+                rel, data, parts[2][: -len(".glb")], need, kinds, items, effect_keys or set()
+            )
         elif folder == "icons":
             _check_pixels(rel, data, ICON_SIZE_BUDGET, ICON_MAX_DIM, items)
         else:
@@ -453,6 +526,7 @@ def _check_model(
     need: dict[str, set[str]],
     kinds: dict[str, set[str]],
     items: list[dict],
+    effect_keys: set[str] = frozenset(),
 ) -> None:
     if len(data) > MODEL_SIZE_BUDGET:  # the game refuses to load it, so nothing else to check
         items.append(_size_item(rel, len(data), MODEL_SIZE_BUDGET, False))
@@ -479,7 +553,8 @@ def _check_model(
             )
         )
     clips = info["clips"]
-    unknown = [c for c in clips if c not in KNOWN_CLIPS]
+    # an effect model's clips are checked against its slot (_vfx_models) instead
+    unknown = [] if key in effect_keys else [c for c in clips if c not in KNOWN_CLIPS]
     if unknown:
         names = ", ".join(f"'{c}'" for c in unknown)
         items.append(
@@ -504,13 +579,113 @@ def _check_model(
         )
 
 
+# What an effect model may not carry: the engine adds no light of its own for a model, and
+# a model's glow would escape the brightness cap (the client strips both anyway).
+_EFFECT_FORBIDDEN = {
+    "KHR_lights_punctual": "lights",
+    "KHR_materials_emissive_strength": "emissive strength",
+}
+
+
+def _vfx_models(
+    pack_dir: Path, effects: list[tuple[str, str, str]], items: list[dict], allow_pointers: bool
+) -> None:
+    """Every model a vfx slot or ruleset look names that is in this pack fits its group's
+    budget, holds only its slot's clips and has no lights, cameras or emissive strength.
+    A model several slots name must fit the smallest budget among them and every slot's
+    clips. A key whose file is in another pack (or not found) is skipped: the game checks
+    it at match setup and in game-validate (Assets3D.build), along the pack's chain."""
+    reported: set[tuple[str, str]] = set()
+    by_key: dict[str, list[tuple[str, str]]] = {}
+    for file, slot, key in effects:
+        by_key.setdefault(key, []).append((file, slot))
+    for key, named in by_key.items():
+        rel = f"assets/models/{key}.glb"
+        path = pack_dir / rel
+        if not path.is_file():
+            continue
+        try:
+            data = path.read_bytes()
+        except OSError:
+            continue
+        slots = sorted({slot for _, slot in named})
+        tris_cap = min(EFFECT_BUDGETS[EFFECT_GROUP[s]][0] for s in slots)
+        size_cap = min(EFFECT_BUDGETS[EFFECT_GROUP[s]][1] for s in slots)
+        who = "/".join(slots)
+        pointer = _lfs_size(data)
+        if pointer is not None:
+            # the real file isn't here: only its declared size is known (a pointer over the
+            # general model budget is already reported by _budgets)
+            if allow_pointers and size_cap < pointer <= MODEL_SIZE_BUDGET:
+                items.append(
+                    _item(
+                        rel,
+                        "budget",
+                        f"its LFS pointer says a {who} effect model is {pointer:,} bytes, over "
+                        f"the {size_cap:,}-byte budget: simplify it",
+                    )
+                )
+            continue  # otherwise _lfs_pointers reports it
+        if len(data) > size_cap:
+            items.append(
+                _item(
+                    rel,
+                    "budget",
+                    f"a {who} effect model is {len(data):,} bytes, over the {size_cap:,}-byte "
+                    "budget: simplify it",
+                )
+            )
+        info = glb_info(data)
+        if isinstance(info, str):
+            continue  # _check_model reports an invalid file
+        if info["tris"] > tris_cap:
+            items.append(
+                _item(
+                    rel,
+                    "budget",
+                    f"a {who} effect model has {info['tris']:,} triangles, over the "
+                    f"{tris_cap:,} budget: decimate it",
+                )
+            )
+        for ext, what in _EFFECT_FORBIDDEN.items():
+            if ext in info["used"]:
+                items.append(
+                    _item(
+                        rel,
+                        "vfx",
+                        f"a {who} effect model uses {ext}: an effect model has no {what}; "
+                        "remove them (the game strips lights and switches glow off)",
+                    )
+                )
+        if info["cameras"]:
+            items.append(
+                _item(rel, "vfx", f"a {who} effect model has a camera: remove it from the file")
+            )
+        for slot in slots:
+            allowed = LOOK_CLIPS if slot == "look" else VFX_MODEL_CLIPS[slot]
+            for c in info["clips"]:
+                if c not in allowed and (key, c) not in reported:
+                    reported.add((key, c))
+                    held = ", ".join(f"'{a}'" for a in allowed) or "none"
+                    items.append(
+                        _item(
+                            rel,
+                            "clips",
+                            f"clip '{c}' is not one a {slot} effect model may hold "
+                            f"(allowed: {held}): rename or remove it",
+                        )
+                    )
+
+
 def lint(pack_dir: Path, cats: dict, allow_lfs_pointers: bool = False) -> list[dict]:
     pack_dir = Path(pack_dir)
     items: list[dict] = []
     manifest = _manifest(pack_dir, cats, items)
-    uses = _defs(pack_dir, cats, manifest, items)
+    effects: list[tuple[str, str, str]] = []
+    uses = _defs(pack_dir, cats, manifest, items, effects)
     _assets(pack_dir, cats, manifest, items)
-    _budgets(pack_dir, manifest, items, allow_lfs_pointers, uses)
+    _budgets(pack_dir, manifest, items, allow_lfs_pointers, uses, {k for _, _, k in effects})
+    _vfx_models(pack_dir, effects, items, allow_lfs_pointers)
     if not allow_lfs_pointers:
         _lfs_pointers(pack_dir, items)
     return items
